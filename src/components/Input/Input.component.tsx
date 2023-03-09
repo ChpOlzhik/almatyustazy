@@ -3,7 +3,7 @@ import Paper from '@mui/material/Paper'
 import InputBase from '@mui/material/InputBase'
 import ButtonComponent from '../Button/Button.component'
 
-export default function CustomizedInputBase() {
+export default function Input() {
   return (
     <Paper
       component="form"

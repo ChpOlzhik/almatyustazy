@@ -1,0 +1,240 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: left;
+    background-color: #f5f5f5;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.pages {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+}
+
+.bet {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 1rem;
+}
+
+.content {
+    display: flex;
+    background-color: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 0%, rgba(0, 212, 255, 1) 100%);
+    margin-left: 5rem;
+    margin-right: 5rem;
+    margin-top: 2rem;
+}
+
+.contentLeft {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 50%;
+    height: 100%;
+    padding: 1rem;
+}
+
+.contentRight {
+    width: 50%;
+    height: 100%;
+    padding: 1rem;
+}
+
+.crd {
+    width: 800px;
+    height: 300px;
+    background-color: white;
+    border-radius: 40px;
+    padding: 30px;
+    margin-top: 20px;
+    box-shadow: #212529;
+}
+
+.active {
+    margin-left: -300px;
+}
+
+.passive {
+    margin-left: 100px;
+}
+
+.one {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.richard {
+    display: flex;
+    height: 300px;
+    width: 40%;
+    background-color: rgb(103, 103, 225);
+    border-radius: 40px;
+    padding: 20px;
+}
+
+.img {
+    border: 1px solid black;
+    border-radius: 30px;
+    width: 200px;
+    height: 200px;
+    margin: 20px;
+    background-color: white;
+}
+
+.speaker {
+    display: flex;
+    margin-left: 100px;
+}
+
+.richardRight {
+    display: flex;
+    flex-wrap: wrap;
+    flex-basis: auto;
+    width: 60%;
+    padding: 1rem;
+    img {
+        width: 200px;
+        height: 200px;
+        margin-left: 100px;
+        margin: 10px 40px;
+        border-radius: 30px;
+        object-fit: cover;
+    }
+}
+
+.insidePaper {
+    display: flex;
+    align-items: center;
+    img {
+        width: 70px;
+        padding: 10px;
+        height: 70px;
+        background-color: white;
+        border-radius: 30px;
+        margin: 15px;
+    }
+}
+
+.come {
+    margin-left: 100px;
+    display: flex;
+    .comeLeft {
+        width: 50%;
+        height: 100%;
+        padding: 1rem;
+    }
+}
+
+.final {
+    margin-top: 50px;
+    width: 100%;
+    height: 600px;
+    background-color: #3E58E8;
+    display: flex;
+    .prev {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        width: 50%;
+    }
+    .imgFinal {
+        width: 400px;
+        height: 200px;
+        margin: auto;
+    }
+    .finalLeft {
+        display: flex;
+        align-items: center;
+        h1 {
+            background-color: #a787f8;
+            border-radius: 60%;
+            padding: 50px;
+            display: flex;
+            align-items: center;
+        }
+    }
+    .right {
+        width: 50%;
+        p {
+            color: white;
+        }
+        h3 {
+            color: white;
+        }
+        h1 {
+            color: white;
+        }
+        div {
+            display: inline-block;
+            border-radius: 20px;
+            border: 1px solid white;
+            background-color: white;
+            padding: 10px;
+            color: blue
+        }
+    }
+}
+
+.now {
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #3E58E8;
+    border-radius: 40px;
+    height: 300px;
+    width: 70%;
+    margin: 100px 200px;
+    h1 {
+        color: white;
+    }
+    p {
+        color: white;
+    }
+    .nowLeft {
+        width: 50%;
+        height: 100%;
+        padding: 1rem;
+        align-items: center;
+        justify-content: center;
+        p {
+            display: flex;
+            align-items: center;
+        }
+    }
+}
+
+.almaty {
+    display: flex;
+    margin-left: 200px;
+    align-items: center;
+    p {
+        margin-left: 10px;
+    }
+}
+
+.footer {
+    margin-top: 100px;
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.divider {
+    margin: 40px;
+    display: flex;
+    justify-content: center;
+}

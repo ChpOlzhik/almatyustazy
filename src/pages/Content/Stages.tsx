@@ -1,6 +1,6 @@
 import React from 'react'
 import ButtonComponent from '../../components/Button/Button.component'
-import '../../index.css'
+import '../../index.scss'
 const Stages: React.FC = () => {
   return (
     <>
@@ -69,8 +69,12 @@ const Stages: React.FC = () => {
         </div>
       </div>
       <div>
-        <h1>Спикерлер</h1>
-        <div>
+        <h1
+          style={{ display: 'flex', justifyContent: 'center', marginTop: 100 }}
+        >
+          Спикерлер
+        </h1>
+        <div className="speaker">
           <div className="richard">
             <img
               className="img"
@@ -78,36 +82,38 @@ const Stages: React.FC = () => {
               alt=""
             />
             <div>
-              <h5>Ричард Кулатта</h5>
-              <p>
+              <h3 style={{ color: 'white' }}>Ричард Кулатта</h3>
+              <p style={{ color: 'white' }}>
                 Білім берудегі цифрлық технологиялармен айналысатын АҚШ-тың ең
                 ірі компаниясының ISTE директоры
               </p>
-              <h3>«Қашықтан оқытудың цифрлық қызметтері мен құралдары»</h3>
+              <h3 style={{ color: 'white' }}>
+                «Қашықтан оқытудың цифрлық қызметтері мен құралдары»
+              </h3>
             </div>
           </div>
-        </div>
-        <div>
-          <img
-            src="https://almatyustazy.kz/upload/iblock/01d/urabak2cld7p439mr9efu4ci1vpo863s/image-83.png"
-            alt="1"
-          />
-          <img
-            src="https://almatyustazy.kz/upload/resize_cache/iblock/f63/6lwr2z5ymlshlw9fzh861398a15j1t60/275_275_1/imgonline_com_ua_Resize_vuoir9vVT57.jpg"
-            alt="2"
-          />
-          <img
-            src="https://almatyustazy.kz/upload/resize_cache/iblock/87b/979ow4fwknj0vj3h6z1lgxap06fs92pl/275_275_1/ludmila_rojdestvenskaya_cr.png"
-            alt="3"
-          />
-          <img
-            src="https://almatyustazy.kz/upload/resize_cache/iblock/0ad/84lmsi294v8zcvk1vqis51sl2i8t8kvo/275_275_1/WhatsApp_Image_2022_08_01_at_23.45.42_removebg_preview.png"
-            alt="4"
-          />
-          <img
-            src="https://almatyustazy.kz/upload/resize_cache/iblock/92f/fy2xtxqs8cnk06s6xihs5s5ttw2qp09i/275_275_1/IMG_2612.jpg"
-            alt="5"
-          />
+          <div className="richardRight">
+            <img
+              src="https://almatyustazy.kz/upload/iblock/01d/urabak2cld7p439mr9efu4ci1vpo863s/image-83.png"
+              alt="1"
+            />
+            <img
+              src="https://almatyustazy.kz/upload/resize_cache/iblock/f63/6lwr2z5ymlshlw9fzh861398a15j1t60/275_275_1/imgonline_com_ua_Resize_vuoir9vVT57.jpg"
+              alt="2"
+            />
+            <img
+              src="https://almatyustazy.kz/upload/resize_cache/iblock/87b/979ow4fwknj0vj3h6z1lgxap06fs92pl/275_275_1/ludmila_rojdestvenskaya_cr.png"
+              alt="3"
+            />
+            <img
+              src="https://almatyustazy.kz/upload/resize_cache/iblock/0ad/84lmsi294v8zcvk1vqis51sl2i8t8kvo/275_275_1/WhatsApp_Image_2022_08_01_at_23.45.42_removebg_preview.png"
+              alt="4"
+            />
+            <img
+              src="https://almatyustazy.kz/upload/resize_cache/iblock/92f/fy2xtxqs8cnk06s6xihs5s5ttw2qp09i/275_275_1/IMG_2612.jpg"
+              alt="5"
+            />
+          </div>
         </div>
       </div>
     </>

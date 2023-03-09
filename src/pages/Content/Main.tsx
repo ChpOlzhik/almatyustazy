@@ -1,5 +1,5 @@
 import React from 'react'
-import '../../index.css'
+import '../../index.scss'
 import CheckBox from '../../components/CheckBox/CheckBox.component'
 import Input from '../../components/Input/Input.component'
 const main: React.FC = () => {
