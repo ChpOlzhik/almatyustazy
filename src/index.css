@@ -50,3 +50,46 @@ body {
     height: 100%;
     padding: 1rem;
 }
+
+.crd {
+    width: 800px;
+    height: 300px;
+    background-color: white;
+    border-radius: 40px;
+    padding: 30px;
+    margin-top: 20px;
+    box-shadow: #212529;
+}
+
+.active {
+    margin-left: -200px;
+}
+
+.passive {
+    margin-left: 100px;
+}
+
+.one {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.richard {
+    display: flex;
+    height: 300px;
+    width: 800px;
+    background-color: rgb(103, 103, 225);
+    border-radius: 40px;
+    padding: 20px;
+}
+
+.img {
+    border: 1px solid black;
+    border-radius: 30px;
+    width: 200px;
+    height: 200px;
+    margin: 20px;
+    background-color: white;
+}

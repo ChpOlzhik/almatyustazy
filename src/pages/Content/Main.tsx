@@ -7,10 +7,10 @@ const main: React.FC = () => {
     <div className="content">
       <div className="contentLeft">
         <h1>Көрсетіңіз, шабыттандырыңыз және басқарыңыз</h1>
-        <h5>
+        <h4>
           Алматыдағы «Almaty Ustazy» қалалық жас мұғалімдер байқауына қатысып,
           Финляндияда оқу тәжірибесінің иегері болыңыз
-        </h5>
+        </h4>
         <Input />
         <CheckBox />
       </div>
