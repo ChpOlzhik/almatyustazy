@@ -1,8 +1,11 @@
 import React from 'react'
 import '../../index.scss'
-const Final: React.FC = () => {
+type FinalProps = {
+  refPrize: React.RefObject<HTMLDivElement>
+}
+const Final = ({ refPrize }: FinalProps) => {
   return (
-    <div className="final">
+    <div className="final" ref={refPrize}>
       <div className="prev">
         <div className="finalLeft">
           <img

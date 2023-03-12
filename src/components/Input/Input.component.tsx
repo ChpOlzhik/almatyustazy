@@ -11,6 +11,7 @@ export default function Input() {
         p: '2px 4px',
         display: 'flex',
         alignItems: 'center',
+        marginTop: 2,
         width: 400,
         height: 60,
         borderRadius: 45,
@@ -22,7 +23,12 @@ export default function Input() {
         inputProps={{ 'aria-label': 'search google maps' }}
       />
 
-      <ButtonComponent word="Тіркелу" />
+      <ButtonComponent
+        word="Тіркелу"
+        onClick={() => {
+          window.location.href = '/login'
+        }}
+      />
     </Paper>
   )
 }

@@ -1,9 +1,13 @@
 import React from 'react'
 import '../../index.scss'
 import ButtonComponent from '../../components/Button/Button.component'
-const Come: React.FC = () => {
+const Come = ({
+  refParticipant,
+}: {
+  refParticipant: React.RefObject<HTMLInputElement>
+}) => {
   return (
-    <div>
+    <div ref={refParticipant}>
       <h1
         style={{
           display: 'flex',
@@ -55,7 +59,12 @@ const Come: React.FC = () => {
             </b>
           </div>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <ButtonComponent word="Тіркелу" />
+            <ButtonComponent
+              word="Тіркелу"
+              onClick={() => {
+                window.location.href = '/login'
+              }}
+            />
           </div>
         </div>
         <img

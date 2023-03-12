@@ -1,19 +1,22 @@
 import React from 'react'
 import ButtonComponent from '../../components/Button/Button.component'
 import '../../index.scss'
-const Stages: React.FC = () => {
+type Props = {
+  refStage?: React.RefObject<HTMLInputElement>
+  refSpeaker?: React.RefObject<HTMLInputElement>
+}
+const Stages = ({ refSpeaker, refStage }: Props) => {
   return (
     <>
-      <div className="one">
+      <div id="id1" className="one" ref={refStage}>
         <h1 className="active">Байқауды өткізу кезеңдері</h1>
         <div className="crd active">
-          <h4 style={{ color: 'blue' }}>
+          <h3 style={{ color: 'blue' }}>
             I кезең - 2022 жылғы 01 тамыздан 11 қыркүйекке дейін ONLINE
-          </h4>
-
-          <h3>
-            «Менің оқыту философиям» тақырыбына мультимедиялық мақала әзірлеу
           </h3>
+          <h4>
+            «Менің оқыту философиям» тақырыбына мультимедиялық мақала әзірлеу
+          </h4>
           <p>
             Түрлі сандық ресурстарды пайдалана отырып, мультимедиялық мақала
             форматында тиімді оқу мен оқыту қағидаттары туралы өз көзқарасыңызды
@@ -39,10 +42,10 @@ const Stages: React.FC = () => {
             2022 жылғы 21 қыркүйек. Сайыс сабақтарын өткізу – 2022 жылғы 22-24
             қыркүйектері
           </p>
-          <h3 style={{ color: 'blue' }}>
+          <h4 style={{ color: 'blue' }}>
             Қазылар алқасы екінші кезеңнің қорытындысы негізінде үшінші кезеңге
             қатысатын бес финалисті анықтайды.
-          </h3>
+          </h4>
         </div>
         <div className="crd passive">
           <h4 style={{ color: 'blue' }}>
@@ -65,12 +68,19 @@ const Stages: React.FC = () => {
           </h3>
         </div>
         <div style={{ marginTop: 50 }}>
-          <ButtonComponent word="Қатысуға өтінім беру" />
+          <ButtonComponent
+            word="Қатысуға өтінім беру"
+            onClick={() => {
+              window.location.href =
+                'https://docs.google.com/forms/d/e/1FAIpQLSd9XjX6jxZ6JvZ8a7Z6G5U6w5j6r5pYh1r6X1XjK7x6H5D2jQ/viewform?usp=sf_link'
+            }}
+          />
         </div>
       </div>
       <div>
         <h1
           style={{ display: 'flex', justifyContent: 'center', marginTop: 100 }}
+          ref={refSpeaker}
         >
           Спикерлер
         </h1>

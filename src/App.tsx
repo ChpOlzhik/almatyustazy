@@ -7,18 +7,13 @@ import Footer from './pages/Content/Footer'
 import Main from './pages/Content/Main'
 import Now from './pages/Content/Now'
 import Stages from './pages/Content/Stages'
+import All from './pages/Function/All/All'
+import RoutesComponent from './routes/Routes'
 
 function App() {
   return (
     <div className="wrapper">
-      <HeaderComponent />
-      <Main />
-      <CarouselComponent />
-      <Stages />
-      <Come />
-      <Final />
-      <Now />
-      <Footer />
+      <RoutesComponent />
     </div>
   )
 }

@@ -10,13 +10,19 @@ import Container from '@mui/material/Container'
 import MenuItem from '@mui/material/MenuItem'
 import { Link } from 'react-router-dom'
 import ButtonComponent from '../Button/Button.component'
+import { Link as NLink } from 'react-scroll'
 import TabsComponent from '../Tabs/Tabs.component'
 
 const pages = ['Спикерлер', 'Байқау кезеңдері', 'Жүлделер', 'Қатысушы болу']
 
-function HeaderComponent() {
+type Props = {
+  scrollTo: (name: string) => void
+}
+function HeaderComponent({ scrollTo }: Props) {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
-
+  const handleClick = (name: string) => {
+    scrollTo(name)
+  }
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget)
   }
@@ -57,7 +63,7 @@ function HeaderComponent() {
               textDecoration: 'none',
             }}
           >
-            <Link to="/f" className="nav-link">
+            <Link to="/" className="nav-link">
               <img
                 src="https://almatyustazy.kz/img_almaty_ustaz/logo.svg"
                 alt="almaty"
@@ -79,7 +85,7 @@ function HeaderComponent() {
               <MenuIcon />
             </IconButton>
             <div>
-              <Link to="/f" className="nav-link">
+              <Link to="/" className="nav-link">
                 <img
                   src="https://astanait.edu.kz/wp-content/uploads/2020/05/aitu-logo-3.png"
                   alt="almaty"
@@ -106,28 +112,155 @@ function HeaderComponent() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                  style={{ color: 'black' }}
-                  className="pages"
+              <MenuItem
+                onClick={handleCloseNavMenu}
+                style={{ color: 'black' }}
+                className="pages"
+              >
+                <button
+                  style={{
+                    backgroundColor: 'white',
+                    border: 'none',
+                    outline: 'none',
+                  }}
+                  onClick={() => {
+                    handleClick('Спикерлер')
+                  }}
                 >
-                  <b>{page}</b>
-                </MenuItem>
-              ))}
+                  <b>Спикерлер</b>
+                </button>
+              </MenuItem>
+              <MenuItem
+                onClick={handleCloseNavMenu}
+                style={{ color: 'black' }}
+                className="pages"
+              >
+                <button
+                  style={{
+                    backgroundColor: 'white',
+                    border: 'none',
+                    outline: 'none',
+                  }}
+                  onClick={() => {
+                    handleClick('Байқау кезеңдері')
+                  }}
+                >
+                  <b>Байқау кезеңдері</b>
+                </button>
+              </MenuItem>
+              <MenuItem
+                onClick={handleCloseNavMenu}
+                style={{ color: 'black' }}
+                className="pages"
+              >
+                <button
+                  style={{
+                    backgroundColor: 'white',
+                    border: 'none',
+                    outline: 'none',
+                  }}
+                  onClick={() => {
+                    handleClick('Жүлделер')
+                  }}
+                >
+                  <b>Жүлделер</b>
+                </button>
+              </MenuItem>
+              <MenuItem
+                onClick={handleCloseNavMenu}
+                style={{ color: 'black' }}
+                className="pages"
+              >
+                <button
+                  style={{
+                    backgroundColor: 'white',
+                    border: 'none',
+                    outline: 'none',
+                  }}
+                  onClick={() => {
+                    handleClick('Қатысушы болу')
+                  }}
+                >
+                  <b>Қатысушы болу</b>
+                </button>
+              </MenuItem>
             </Menu>
           </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <div className="pages" style={{ color: 'black' }}>
-                <b>{page}</b>
-              </div>
-            ))}
+            <div className="pages" style={{ color: 'black' }}>
+              <button
+                style={{
+                  backgroundColor: 'white',
+                  border: 'none',
+                  outline: 'none',
+                }}
+                onClick={() => {
+                  handleClick('Спикерлер')
+                }}
+              >
+                <b>Спикерлер</b>
+              </button>
+            </div>
+            <div className="pages" style={{ color: 'black' }}>
+              <button
+                style={{
+                  backgroundColor: 'white',
+                  border: 'none',
+                  outline: 'none',
+                }}
+                onClick={() => {
+                  handleClick('Байқау кезеңдері')
+                }}
+              >
+                <b>Байқау кезеңдері</b>
+              </button>
+            </div>
+            <div className="pages" style={{ color: 'black' }}>
+              <button
+                style={{
+                  backgroundColor: 'white',
+                  border: 'none',
+                  outline: 'none',
+                }}
+                onClick={() => {
+                  handleClick('Жүлделер')
+                }}
+              >
+                <b>Жүлделер</b>
+              </button>
+            </div>
+            <div className="pages" style={{ color: 'black' }}>
+              <button
+                style={{
+                  backgroundColor: 'white',
+                  border: 'none',
+                  outline: 'none',
+                }}
+                onClick={() => {
+                  handleClick('Қатысушы болу')
+                }}
+              >
+                <b>Қатысушы болу</b>
+              </button>
+            </div>
           </Box>
           <Box sx={{ flexGrow: 1 }} className="bet">
-            <ButtonComponent word="Кіру" />
+            <ButtonComponent
+              word="Кіру"
+              onClick={() => {
+                window.location.href = '/login'
+              }}
+            />
+            {localStorage.getItem('user') && (
+              <ButtonComponent
+                word="Жеке кабинет"
+                onClick={() => {
+                  window.location.href = '/profile'
+                }}
+              />
+            )}
+
             <TabsComponent />
           </Box>
         </Toolbar>
