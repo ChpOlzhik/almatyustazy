@@ -1,4 +1,3 @@
-import * as React from 'react'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
@@ -13,32 +12,32 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import '../../index.scss'
+import { useState } from 'react'
 import DatePickerValue from '../DatePicker/DatePicker.component'
 const style = {
   position: 'absolute' as 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 800,
-  height: 600,
+  width: 500,
   bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
+  border: '0px solid #000',
+  boxShadow: 40,
   p: 4,
+  backgroundColor: '#fff',
 }
-
-export default function BasicModal() {
-  const [open, setOpen] = React.useState(false)
-  const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
-  const [age, setAge] = React.useState('')
+type Props = {
+  handleClose: () => void
+  open: boolean
+}
+export default function ModalRegister({ handleClose, open }: Props) {
+  const [age, setAge] = useState('')
 
   const handleChange = (event: SelectChangeEvent) => {
     setAge(event.target.value as string)
   }
   return (
     <div>
-      <Button onClick={handleOpen}>Құжат Қосу</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -83,7 +82,15 @@ export default function BasicModal() {
                 </Select>
               </FormControl>
             </Box>
-            <Button className="modalIn" variant="outlined">
+            <Button
+              style={{
+                backgroundColor: '#3f51b5',
+                color: 'white',
+                margin: '15px 10px',
+                width: '100%',
+              }}
+              variant="outlined"
+            >
               Жіберу
             </Button>
           </Typography>

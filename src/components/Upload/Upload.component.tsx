@@ -4,6 +4,14 @@ import Button from '@mui/material/Button'
 import Stack from '@mui/material/Stack'
 
 export default function UploadButtons() {
+  const [selectedFiles, setSelectedFiles] = React.useState<FileList | null>(
+    null,
+  )
+  const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedFiles(event.target.files)
+  }
+  console.log(selectedFiles)
+
   return (
     <Stack direction="row" alignItems="center" spacing={2}>
       <div className="text-center">
@@ -15,7 +23,7 @@ export default function UploadButtons() {
       </div>
       <Button variant="contained" component="label">
         Сурет қосу
-        <input hidden accept="image/*" multiple type="file" />
+        <input hidden multiple type="file" onChange={handleUpload} />
       </Button>
     </Stack>
   )

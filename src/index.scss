@@ -23,7 +23,7 @@ body {
 
 .bet {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     padding: 0 1rem;
 }
@@ -247,4 +247,5 @@ body {
 .modalIn {
     display: flex;
     justify-content: center;
+    align-items: center;
 }

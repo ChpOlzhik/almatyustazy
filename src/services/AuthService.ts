@@ -3,6 +3,18 @@ import $api from "../http";
 import { AxiosResponse } from "axios";
 import { AuthResponse } from "../models/response/AuthResponse";
 import { API_URL } from "../http/index";
+
+export type userType = {
+  userName: "string";
+  email: "string";
+  firstName: "string";
+  lastName: "string";
+  middleName: "string";
+  birthDate: "string";
+  profilePhoto: "string";
+  group: "string";
+  subject: "string";
+};
 class AuthService {
   async login(
     username: string,
@@ -12,25 +24,17 @@ class AuthService {
       .post(API_URL + "/auth/login", {
         username,
         password,
+        Origin: "http://localhost:3000",
       })
       .then((response) => {
         if (response.data.authenticationToken) {
           localStorage.setItem("user", JSON.stringify(response.data));
-
-          if (response.data.role.includes("ROLE_ADMIN")) {
-            window.location.href = "/admin/profile";
-          } else if (response.data.role.includes("ROLE_SECRETARY")) {
-            window.location.href = "/secretary";
-          } else if (response.data.role.includes("ROLE_COMMISSION")) {
-            window.location.href = "/commission/dashboard";
-          } else {
-            window.location.href = "/student/dashboard";
-          }
+          window.location.href = "/profile";
         }
         return response.data;
       })
       .catch((error) => {
-        console.log(error);
+        return error;
       });
   }
 
@@ -42,7 +46,7 @@ class AuthService {
     firstName: string,
     lastName: string
   ): Promise<AxiosResponse<any>> {
-    return $api.post("/auth/signup", {
+    return axios.post(API_URL + "/auth/signup", {
       username,
       password,
       email,
@@ -55,8 +59,19 @@ class AuthService {
   async logout() {
     window.location.href = "/login";
   }
-  async getCurrentUser() {
-    return JSON.parse(localStorage.getItem("user") || "{}");
+  async getCurrentUser(): Promise<AxiosResponse<userType>> {
+    return axios
+      .get(API_URL + "/profile", {
+        headers: {
+          Authorization:
+            "Bearer " +
+            JSON.parse(localStorage.getItem("user") || "{}")
+              .authenticationToken,
+        },
+      })
+      .then((response) => {
+        return response.data;
+      });
   }
 }
 

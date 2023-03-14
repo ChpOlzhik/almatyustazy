@@ -4,15 +4,10 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { Link } from 'react-router-dom'
 import AuthService from '../../../services/AuthService'
 import HeaderComponent from '../../../components/Header/Header.component'
+import { AxiosResponse } from 'axios'
 
 const Login = () => {
   const [isLogin, setIsLogin] = React.useState(true)
-  // const [username, setUserName] = React.useState('')
-  // const [password, setPassword] = React.useState('')
-  // const [firstName, setFirstName] = React.useState('')
-  // const [lastName, setLastName] = React.useState('')
-  // const [middleName, setMiddleName] = React.useState('')
-  // const [email, setEmail] = React.useState('')
   const [all, setAll] = React.useState({
     username: '',
     password: '',
@@ -24,20 +19,33 @@ const Login = () => {
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState)
   }
+  const [error, setError] = React.useState<string | null>(null)
 
   const submitHandler = (event: React.FormEvent) => {
     event.preventDefault()
     if (isLogin) {
-      AuthService.login(all.username.toString(), all.password.toString())
+      AuthService.login(all.username.toString(), all.password.toString()).catch(
+        (err) => {
+          setError(err)
+          console.log(error)
+        },
+      )
     } else {
       AuthService.register(
         all.username.toString(),
         all.password.toString(),
+        all.email.toString(),
         all.firstName.toString(),
         all.lastName.toString(),
         all.middleName.toString(),
-        all.email.toString(),
       )
+        .then((response: AxiosResponse) => {
+          console.log(response.data)
+          AuthService.login(all.username.toString(), all.password.toString())
+        })
+        .catch((error) => {
+          setError(error.response.data.message)
+        })
     }
     setAll({
       username: '',
@@ -48,6 +56,8 @@ const Login = () => {
       email: '',
     })
   }
+  console.log(error)
+
   function setFirstName(value: string): void {
     setAll((prevState) => ({ ...prevState, firstName: value }))
   }
@@ -69,7 +79,7 @@ const Login = () => {
 
   return (
     <>
-      <HeaderComponent />
+      <HeaderComponent scrollTo={setPassword} />
       <form onSubmit={submitHandler}>
         <div className="container mt-5 mb-5">
           <div className="d-flex flex row g-0">
@@ -162,6 +172,11 @@ const Login = () => {
                         placeholder="Enter Your Password"
                         onChange={(e) => setPassword(e.target.value)}
                       />{' '}
+                      {error && (
+                        <div className="alert alert-danger" role="alert">
+                          {error}
+                        </div>
+                      )}
                     </div>{' '}
                   </div>
                   <button

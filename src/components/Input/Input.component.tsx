@@ -3,7 +3,10 @@ import Paper from '@mui/material/Paper'
 import InputBase from '@mui/material/InputBase'
 import ButtonComponent from '../Button/Button.component'
 
-export default function Input() {
+type Props = {
+  handleOpen: () => void
+}
+export default function Input({ handleOpen }: Props) {
   return (
     <Paper
       component="form"
@@ -26,7 +29,11 @@ export default function Input() {
       <ButtonComponent
         word="Тіркелу"
         onClick={() => {
-          window.location.href = '/login'
+          if (localStorage.getItem('user')) {
+            handleOpen()
+          } else {
+            window.location.href = '/login'
+          }
         }}
       />
     </Paper>

@@ -87,7 +87,7 @@ function HeaderComponent({ scrollTo }: Props) {
             <div>
               <Link to="/" className="nav-link">
                 <img
-                  src="https://astanait.edu.kz/wp-content/uploads/2020/05/aitu-logo-3.png"
+                  src="https://almatyustazy.kz/img_almaty_ustaz/logo.svg"
                   alt="almaty"
                   height="60"
                   width="120"
@@ -245,18 +245,28 @@ function HeaderComponent({ scrollTo }: Props) {
               </button>
             </div>
           </Box>
-          <Box sx={{ flexGrow: 1 }} className="bet">
-            <ButtonComponent
-              word="Кіру"
-              onClick={() => {
-                window.location.href = '/login'
-              }}
-            />
+          <Box sx={{ flexGrow: 2 }} className="bet">
             {localStorage.getItem('user') && (
               <ButtonComponent
                 word="Жеке кабинет"
                 onClick={() => {
                   window.location.href = '/profile'
+                }}
+              />
+            )}
+            {!localStorage.getItem('user') ? (
+              <ButtonComponent
+                word="Кіру"
+                onClick={() => {
+                  window.location.href = '/login'
+                }}
+              />
+            ) : (
+              <ButtonComponent
+                word="шығу"
+                onClick={() => {
+                  localStorage.removeItem('user')
+                  window.location.href = '/'
                 }}
               />
             )}

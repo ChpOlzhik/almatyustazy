@@ -1,14 +1,20 @@
 import React from 'react'
 import HeaderComponent from '../../../components/Header/Header.component'
-import AuthService from '../../../services/AuthService'
-import BasicModal from '../../../components/Modal/Modal.component'
+import AuthService, { userType } from '../../../services/AuthService'
+import { AxiosResponse } from 'axios'
 
 const Profile = () => {
-  const user = AuthService.getCurrentUser()
+  const [userProfile, setUserProfile] = React.useState<any>([])
+  React.useEffect(() => {
+    const user = AuthService.getCurrentUser()
+    user.then((res: AxiosResponse) => setUserProfile(res))
+  }, [])
+  console.log(userProfile)
 
+  const scrollTo = () => {}
   return (
     <div>
-      <HeaderComponent />
+      <HeaderComponent scrollTo={scrollTo} />
       <div className="container mt-5">
         <div className="row d-flex justify-content-center">
           <div className="col-md-7">
@@ -23,15 +29,20 @@ const Profile = () => {
 
               <div className="text-center mt-3">
                 <span className="bg-secondary p-1 px-4 rounded text-white">
-                  users username
+                  {userProfile?.username}
                 </span>
-                <h5 className="mt-2 mb-0">User's name</h5>
-                <span>User's role</span>
+                <h5 className="mt-2 mb-0">
+                  {userProfile?.firstName} {userProfile?.lastName}
+                </h5>
 
+                <span>{userProfile?.email}</span>
                 <div className="px-4 mt-1">
-                  <p className="fonts">info here</p>
+                  <p className="fonts"> group:{userProfile?.group}</p>
+                  <p className="fonts">subject:{userProfile?.subject}</p>
+                  <p className="fonts">
+                    Date of Birth:{userProfile?.birthDate}
+                  </p>
                 </div>
-
                 <div className="buttons d-flex justify-content-around ml-5">
                   <button
                     className="btn btn-outline-primary px-4"
@@ -41,8 +52,10 @@ const Profile = () => {
                   >
                     Басты бетке өту
                   </button>
-                  <BasicModal />
                 </div>
+                <button className=" mt-2 btn btn-outline-primary px-4">
+                  Жұмысты жіберу
+                </button>
               </div>
             </div>
           </div>
