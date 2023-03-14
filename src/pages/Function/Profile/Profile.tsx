@@ -2,6 +2,7 @@ import React from 'react'
 import HeaderComponent from '../../../components/Header/Header.component'
 import AuthService, { userType } from '../../../services/AuthService'
 import { AxiosResponse } from 'axios'
+import BasicModal from './ModalProfile'
 
 const Profile = () => {
   const [userProfile, setUserProfile] = React.useState<any>([])
@@ -53,14 +54,14 @@ const Profile = () => {
                     Басты бетке өту
                   </button>
                 </div>
-                <button className=" mt-2 btn btn-outline-primary px-4">
-                  Жұмысты жіберу
-                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <h1>My Registered Olympiad</h1>
+      <h3>Ұстаз Олимпиадасына тіркелдіңіз</h3>
+      <BasicModal />
     </div>
   )
 }

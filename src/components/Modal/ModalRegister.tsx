@@ -7,10 +7,6 @@ import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
-import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import '../../index.scss'
 import { useState } from 'react'
 import DatePickerValue from '../DatePicker/DatePicker.component'
@@ -26,15 +22,28 @@ const style = {
   p: 4,
   backgroundColor: '#fff',
 }
+
+const subjects = [
+  { id: 1, name: 'Mатематика' },
+  { id: 2, name: 'Физика' },
+  { id: 3, name: 'Химия' },
+  { id: 4, name: 'Биология' },
+  { id: 5, name: 'История' },
+  { id: 6, name: 'География' },
+  { id: 7, name: 'Английский' },
+  { id: 8, name: 'Казахский' },
+  { id: 9, name: 'Русский' },
+  { id: 10, name: 'Литература' },
+]
 type Props = {
   handleClose: () => void
   open: boolean
 }
 export default function ModalRegister({ handleClose, open }: Props) {
-  const [age, setAge] = useState('')
+  const [subject, setSubject] = useState('')
 
   const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value as string)
+    setSubject(event.target.value as string)
   }
   return (
     <div>
@@ -56,17 +65,24 @@ export default function ModalRegister({ handleClose, open }: Props) {
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
-                  value={age}
+                  value={subject}
                   label="Subject"
                   onChange={handleChange}
                 >
-                  <MenuItem value={10}>Ten</MenuItem>
+                  {/* <MenuItem value={10}>Ten</MenuItem>
                   <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
+                  <MenuItem value={30}>Thirty</MenuItem> */}
+                  {subjects.map((item) => {
+                    return (
+                      <MenuItem value={item.id} key={item.id}>
+                        {item.name}
+                      </MenuItem>
+                    )
+                  })}
                 </Select>
               </FormControl>
             </Box>
-            <Box sx={{ minWidth: 200, margin: '10px 20px' }}>
+            {/* <Box sx={{ minWidth: 200, margin: '10px 20px' }}>
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">School</InputLabel>
                 <Select
@@ -81,7 +97,7 @@ export default function ModalRegister({ handleClose, open }: Props) {
                   <MenuItem value={30}>Thirty</MenuItem>
                 </Select>
               </FormControl>
-            </Box>
+            </Box> */}
             <Button
               style={{
                 backgroundColor: '#3f51b5',
