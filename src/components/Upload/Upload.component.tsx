@@ -2,15 +2,41 @@ import * as React from 'react'
 import Button from '@mui/material/Button'
 
 import Stack from '@mui/material/Stack'
+import { API_URL } from '../../http/index'
 
 export default function UploadButtons() {
   const [selectedFiles, setSelectedFiles] = React.useState<FileList | null>(
     null,
   )
+
+  const formData = new FormData()
+  formData.append('file', selectedFiles?.item(0) as File)
   const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedFiles(event.target.files)
   }
-  console.log(selectedFiles)
+
+  const sendFile = () => {
+    fetch(
+      'https://almatyustazy.akylgroup.com.kz/profile/uploadAndSetProfilePhoto',
+      {
+        method: 'POST',
+        body: formData,
+        headers: {
+          Authorization:
+            'Bearer ' +
+            JSON.parse(localStorage.getItem('user') || '{}')
+              .authenticationToken,
+        },
+      },
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Success:', data)
+      })
+      .catch((error) => {
+        console.error('Error:', error)
+      })
+  }
 
   return (
     <Stack direction="row" alignItems="center" spacing={2}>
@@ -24,6 +50,9 @@ export default function UploadButtons() {
       <Button variant="contained" component="label">
         Сурет қосу
         <input hidden multiple type="file" onChange={handleUpload} />
+      </Button>
+      <Button variant="outlined" onClick={sendFile}>
+        Жіберу
       </Button>
     </Stack>
   )

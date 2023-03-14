@@ -35,6 +35,16 @@ const subjects = [
   { id: 9, name: 'Русский' },
   { id: 10, name: 'Литература' },
 ]
+const school = [
+  { id: 1, name: 'Школа 1' },
+  { id: 2, name: 'Школа 2' },
+  { id: 3, name: 'Школа 3' },
+  { id: 4, name: 'Школа 4' },
+  { id: 5, name: 'Школа 5' },
+  { id: 6, name: 'Школа 6' },
+  { id: 7, name: 'Школа 7' },
+  { id: 8, name: 'Школа 8' },
+]
 type Props = {
   handleClose: () => void
   open: boolean
@@ -69,10 +79,27 @@ export default function ModalRegister({ handleClose, open }: Props) {
                   label="Subject"
                   onChange={handleChange}
                 >
-                  {/* <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem> */}
                   {subjects.map((item) => {
+                    return (
+                      <MenuItem value={item.id} key={item.id}>
+                        {item.name}
+                      </MenuItem>
+                    )
+                  })}
+                </Select>
+              </FormControl>
+            </Box>
+            <Box sx={{ minWidth: 200, margin: '10px 20px' }}>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">School</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={subject}
+                  label="School"
+                  onChange={handleChange}
+                >
+                  {school.map((item) => {
                     return (
                       <MenuItem value={item.id} key={item.id}>
                         {item.name}
