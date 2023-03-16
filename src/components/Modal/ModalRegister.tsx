@@ -10,6 +10,9 @@ import Select, { SelectChangeEvent } from '@mui/material/Select'
 import '../../index.scss'
 import { useState } from 'react'
 import DatePickerValue from '../DatePicker/DatePicker.component'
+import dayjs, { Dayjs } from 'dayjs'
+import TournamentService from '../../services/TournamentService'
+import { schools, subjects } from '../../models/data'
 const style = {
   position: 'absolute' as 'absolute',
   top: '50%',
@@ -23,38 +26,35 @@ const style = {
   backgroundColor: '#fff',
 }
 
-const subjects = [
-  { id: 1, name: 'Mатематика' },
-  { id: 2, name: 'Физика' },
-  { id: 3, name: 'Химия' },
-  { id: 4, name: 'Биология' },
-  { id: 5, name: 'История' },
-  { id: 6, name: 'География' },
-  { id: 7, name: 'Английский' },
-  { id: 8, name: 'Казахский' },
-  { id: 9, name: 'Русский' },
-  { id: 10, name: 'Литература' },
-]
-const school = [
-  { id: 1, name: 'Школа 1' },
-  { id: 2, name: 'Школа 2' },
-  { id: 3, name: 'Школа 3' },
-  { id: 4, name: 'Школа 4' },
-  { id: 5, name: 'Школа 5' },
-  { id: 6, name: 'Школа 6' },
-  { id: 7, name: 'Школа 7' },
-  { id: 8, name: 'Школа 8' },
-]
 type Props = {
   handleClose: () => void
   open: boolean
 }
+
 export default function ModalRegister({ handleClose, open }: Props) {
   const [subject, setSubject] = useState('')
-
+  const [school, setSchool] = useState('')
+  const [value, setValue] = useState<Dayjs>(dayjs(''))
   const handleChange = (event: SelectChangeEvent) => {
     setSubject(event.target.value as string)
   }
+  const SchoolChange = (event: SelectChangeEvent) => {
+    setSchool(event.target.value as string)
+  }
+  const firstName = 'Айдар'
+  const lastName = 'Айдаров'
+  const middleName = 'Айдарович'
+  const sent = () => {
+    TournamentService.updateProfile(
+      firstName,
+      lastName,
+      middleName,
+      value,
+      subject,
+      school,
+    )
+  }
+
   return (
     <div>
       <Modal
@@ -67,7 +67,7 @@ export default function ModalRegister({ handleClose, open }: Props) {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             <UploadButtons />
             <Box sx={{ minWidth: 200, margin: '10px 20px' }}>
-              <DatePickerValue />
+              <DatePickerValue value={value} setValue={setValue} />
             </Box>
             <Box sx={{ minWidth: 200, margin: '10px 20px' }}>
               <FormControl fullWidth>
@@ -95,11 +95,11 @@ export default function ModalRegister({ handleClose, open }: Props) {
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
-                  value={subject}
+                  value={school}
                   label="School"
-                  onChange={handleChange}
+                  onChange={SchoolChange}
                 >
-                  {school.map((item) => {
+                  {schools.map((item) => {
                     return (
                       <MenuItem value={item.id} key={item.id}>
                         {item.name}
@@ -109,22 +109,7 @@ export default function ModalRegister({ handleClose, open }: Props) {
                 </Select>
               </FormControl>
             </Box>
-            {/* <Box sx={{ minWidth: 200, margin: '10px 20px' }}>
-              <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">School</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={age}
-                  label="Subject"
-                  onChange={handleChange}
-                >
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
-                </Select>
-              </FormControl>
-            </Box> */}
+
             <Button
               style={{
                 backgroundColor: '#3f51b5',
@@ -133,6 +118,7 @@ export default function ModalRegister({ handleClose, open }: Props) {
                 width: '100%',
               }}
               variant="outlined"
+              onClick={sent}
             >
               Жіберу
             </Button>

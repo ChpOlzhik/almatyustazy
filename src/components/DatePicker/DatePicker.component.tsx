@@ -1,14 +1,18 @@
 import * as React from 'react'
-import dayjs, { Dayjs } from 'dayjs'
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+import dayjs, { Dayjs } from 'dayjs'
 
-export default function DatePickerValue() {
-  const [value, setValue] = React.useState<Dayjs | null>(dayjs(''))
-  console.log(value)
-
+type DatePickerValueProps = {
+  value: Dayjs | null
+  setValue: (value: Dayjs) => void
+}
+export default function DatePickerValue({
+  value,
+  setValue,
+}: DatePickerValueProps) {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DemoContainer components={['DatePicker', 'DatePicker']}>

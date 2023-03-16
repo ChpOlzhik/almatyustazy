@@ -16,14 +16,20 @@ const style = {
   p: 4,
 }
 
-export default function BasicModal() {
+type Props = {
+  userProfile: [any]
+}
+
+export default function BasicModal({ userProfile }: Props) {
   const [open, setOpen] = React.useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
 
   return (
     <div>
-      <Button onClick={handleOpen}>Open modal</Button>
+      <Button onClick={handleOpen} color="primary" variant="contained">
+        Жұмысты жүктеу
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -32,11 +38,12 @@ export default function BasicModal() {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
+            <Button variant="contained" component="label">
+              Жұмысты жүктеу
+              <input hidden accept="image/*" multiple type="file" />
+            </Button>
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}></Typography>
         </Box>
       </Modal>
     </div>

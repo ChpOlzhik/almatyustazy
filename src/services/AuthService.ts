@@ -1,11 +1,11 @@
 import axios from "axios";
-import $api from "../http";
 import { AxiosResponse } from "axios";
 import { AuthResponse } from "../models/response/AuthResponse";
-import { API_URL } from "../http/index";
+
+export const API_URL = "https://almatyustazy.akylgroup.com.kz";
 
 export type userType = {
-  userName: "string";
+  username: "string";
   email: "string";
   firstName: "string";
   lastName: "string";
@@ -59,7 +59,7 @@ class AuthService {
   async logout() {
     window.location.href = "/login";
   }
-  async getCurrentUser(): Promise<AxiosResponse<userType>> {
+  async getCurrentUser(): Promise<userType> {
     return axios
       .get(API_URL + "/profile", {
         headers: {
