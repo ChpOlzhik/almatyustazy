@@ -19,7 +19,9 @@ export default function DatePickerValue({
         <DatePicker
           label="Birth date"
           value={value}
-          onChange={(newValue) => setValue(newValue)}
+          onChange={(newValue: any) => {
+            setValue(newValue)
+          }}
         />
       </DemoContainer>
     </LocalizationProvider>

@@ -12,11 +12,10 @@ const main: React.FC = () => {
   return (
     <div className="content" id="section1">
       <div className="contentLeft">
-        <h1>Көрсетіңіз, шабыттандырыңыз және басқарыңыз</h1>
-        <h5 style={{ marginTop: 25 }}>
-          Алматыдағы «Almaty Ustazy» қалалық жас мұғалімдер байқауына қатысып,
-          Финляндияда оқу тәжірибесінің иегері болыңыз
-        </h5>
+        <h1>
+          «Алматы Ұстазы - 2023» жас мұғалімдердің кәсіби байқауына шақырамыз!{' '}
+        </h1>
+        <h3 style={{ marginTop: 25 }}>Жаспын, жас та болсам баспын!</h3>
         <Input handleOpen={handleOpen} />
         <CheckBox />
         {open && <ModalRegister handleClose={handleClose} open={open} />}

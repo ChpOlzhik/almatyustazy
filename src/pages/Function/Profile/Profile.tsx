@@ -1,27 +1,44 @@
 import React from 'react'
 import HeaderComponent from '../../../components/Header/Header.component'
-import AuthService, { userType } from '../../../services/AuthService'
+import AuthService from '../../../services/AuthService'
 import { AxiosResponse } from 'axios'
 import BasicModal from './ModalProfile'
 type pofileType = {
   username: string
   email: string
-  lastName: string
   firstName: string
+  lastName: string
   middleName: string
   birthDate: string
   profilePhoto: string
-  group: string
-  subject: string
+  isKazakhProficient: boolean
+  englishProficiency: boolean
+  pedagogicalExperience: number
+  pedagogicalExperienceCurrent: number
+  group: {
+    id: number
+    nameKaz: string
+    nameRus: string
+  }
+  subject: {
+    id: number
+    nameKaz: string
+    nameRus: string
+  }
+  category: {
+    id: number
+    nameKaz: string
+    nameRus: string
+  }
 }
 const Profile = () => {
   const [userProfile, setUserProfile] = React.useState<any>([])
   React.useEffect(() => {
     const user = AuthService.getCurrentUser()
-    user.then((res) => setUserProfile(res))
+    console.log(user)
   }, [])
-
   const scrollTo = () => {}
+  console.log(userProfile)
   return (
     <div>
       <HeaderComponent scrollTo={scrollTo} />
@@ -48,11 +65,12 @@ const Profile = () => {
                 <h5 className="mt-2 mb-0">
                   {userProfile?.firstName} {userProfile?.lastName}
                 </h5>
-
                 <span>{userProfile?.email}</span>
                 <div className="px-4 mt-1">
-                  <p className="fonts"> group:{userProfile?.group}</p>
-                  <p className="fonts">subject:{userProfile?.subject}</p>
+                  <p className="fonts"> group:{userProfile?.group.nameKaz}</p>
+                  <p className="fonts">
+                    subject:{userProfile?.subject.nameKaz}
+                  </p>
                   <p className="fonts">
                     Date of Birth:{userProfile?.birthDate}
                   </p>

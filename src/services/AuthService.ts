@@ -5,16 +5,34 @@ import { AuthResponse } from "../models/response/AuthResponse";
 export const API_URL = "https://almatyustazy.akylgroup.com.kz";
 
 export type userType = {
-  username: "string";
-  email: "string";
-  firstName: "string";
-  lastName: "string";
-  middleName: "string";
-  birthDate: "string";
-  profilePhoto: "string";
-  group: "string";
-  subject: "string";
+  username: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  middleName: string;
+  birthDate: string;
+  profilePhoto: string;
+  isKazakhProficient: boolean;
+  englishProficiency: boolean;
+  pedagogicalExperience: number;
+  pedagogicalExperienceCurrent: number;
+  group: {
+    id: number;
+    nameKaz: string;
+    nameRus: string;
+  };
+  subject: {
+    id: number;
+    nameKaz: string;
+    nameRus: string;
+  };
+  category: {
+    id: number;
+    nameKaz: string;
+    nameRus: string;
+  };
 };
+
 class AuthService {
   async login(
     username: string,
@@ -59,19 +77,14 @@ class AuthService {
   async logout() {
     window.location.href = "/login";
   }
-  async getCurrentUser(): Promise<userType> {
-    return axios
-      .get(API_URL + "/profile", {
-        headers: {
-          Authorization:
-            "Bearer " +
-            JSON.parse(localStorage.getItem("user") || "{}")
-              .authenticationToken,
-        },
-      })
-      .then((response) => {
-        return response.data;
-      });
+  async getCurrentUser(): Promise<AxiosResponse<userType>> {
+    return axios.get(API_URL + "/profile", {
+      headers: {
+        Authorization:
+          "Bearer " +
+          JSON.parse(localStorage.getItem("user") || "{}").authenticationToken,
+      },
+    });
   }
 }
 

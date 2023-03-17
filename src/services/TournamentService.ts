@@ -18,11 +18,16 @@ class TournamentService {
     middleName: string,
     birthDate: Dayjs,
     group: string,
-    subject: string
+    subject: string,
+    category: number,
+    isKazakhProficient: boolean,
+    englishProficiency: boolean,
+    pedagogicalExperienceCurrent: number,
+    pedagogicalExperience: number
   ): Promise<AxiosResponse<any>> {
     return axios({
       method: "put",
-      url: API_URL + "/profile/uploadProfileInfo",
+      url: API_URL + "/profile/updateProfileInfo",
       headers: {
         Authorization:
           "Bearer " +
@@ -35,6 +40,11 @@ class TournamentService {
         birthDate,
         group,
         subject,
+        category,
+        isKazakhProficient,
+        englishProficiency,
+        pedagogicalExperienceCurrent,
+        pedagogicalExperience,
       },
     });
   }

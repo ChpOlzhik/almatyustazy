@@ -44,16 +44,7 @@ export default function ModalRegister({ handleClose, open }: Props) {
   const firstName = 'Айдар'
   const lastName = 'Айдаров'
   const middleName = 'Айдарович'
-  const sent = () => {
-    TournamentService.updateProfile(
-      firstName,
-      lastName,
-      middleName,
-      value,
-      subject,
-      school,
-    )
-  }
+  const sent = () => {}
 
   return (
     <div>
@@ -65,7 +56,6 @@ export default function ModalRegister({ handleClose, open }: Props) {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            <UploadButtons />
             <Box sx={{ minWidth: 200, margin: '10px 20px' }}>
               <DatePickerValue value={value} setValue={setValue} />
             </Box>
