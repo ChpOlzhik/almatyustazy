@@ -61,8 +61,8 @@ class AuthService {
     password: string,
     email: string,
     middleName: string,
-    firstName: string,
-    lastName: string
+    lastName: string,
+    firstName: string
   ): Promise<AxiosResponse<any>> {
     return axios.post(API_URL + "/auth/signup", {
       username,
@@ -78,13 +78,18 @@ class AuthService {
     window.location.href = "/login";
   }
   async getCurrentUser(): Promise<AxiosResponse<userType>> {
-    return axios.get(API_URL + "/profile", {
-      headers: {
-        Authorization:
-          "Bearer " +
-          JSON.parse(localStorage.getItem("user") || "{}").authenticationToken,
-      },
-    });
+    return axios
+      .get(API_URL + "/profile", {
+        headers: {
+          Authorization:
+            "Bearer " +
+            JSON.parse(localStorage.getItem("user") || "{}")
+              .authenticationToken,
+        },
+      })
+      .then((response) => {
+        return response.data;
+      });
   }
 }
 

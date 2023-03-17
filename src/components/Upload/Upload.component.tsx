@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Button from '@mui/material/Button'
 import Stack from '@mui/material/Stack'
-import AuthService from '../../services/AuthService'
+import { useNavigate } from 'react-router-dom'
 type Props = {
   userProfile: any
 }
@@ -15,7 +15,7 @@ export default function UploadButtons({ userProfile }: Props) {
   const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedFiles(event.target.files)
   }
-
+  const navigate = useNavigate()
   const sendFile = () => {
     fetch(
       'https://almatyustazy.akylgroup.com.kz/profile/uploadAndSetProfilePhoto',

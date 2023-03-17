@@ -1,8 +1,8 @@
 import React from 'react'
 import HeaderComponent from '../../../components/Header/Header.component'
 import AuthService from '../../../services/AuthService'
-import { AxiosResponse } from 'axios'
 import BasicModal from './ModalProfile'
+import { useNavigate } from 'react-router-dom'
 type pofileType = {
   username: string
   email: string
@@ -31,14 +31,47 @@ type pofileType = {
     nameRus: string
   }
 }
+
 const Profile = () => {
-  const [userProfile, setUserProfile] = React.useState<any>([])
+  const [userProfile, setUserProfile] = React.useState<any>()
   React.useEffect(() => {
     const user = AuthService.getCurrentUser()
-    console.log(user)
+    user.then((res) => setUserProfile(res))
   }, [])
+  const navigate = useNavigate()
+  const birthDate = new Date(userProfile?.birthDate)
+  var birthDateFormated = 'Енгізілмеген'
+  if (userProfile?.birthDate !== null) {
+    birthDateFormated = `${birthDate.getDate() + 1}.${
+      birthDate.getMonth() + 1
+    }.${birthDate.getFullYear()}`
+  }
   const scrollTo = () => {}
-  console.log(userProfile)
+  if (userProfile?.isKazakhProficient == false) {
+    userProfile.isKazakhProficient = 'Орысша'
+  }
+  if (userProfile?.isKazakhProficient == true) {
+    userProfile.isKazakhProficient = 'Қазақша'
+  }
+  if (userProfile?.isKazakhProficient == false) {
+    userProfile.isKazakhProficient = 'Русский'
+  }
+  if (userProfile?.isKazakhProficient == true) {
+    userProfile.isKazakhProficient = 'Казахский'
+  }
+  if (userProfile?.englishProficiency == false) {
+    userProfile.englishProficiency = 'Нет'
+  }
+  if (userProfile?.englishProficiency == true) {
+    userProfile.englishProficiency = 'Да'
+  }
+  if (userProfile?.englishProficiency == false) {
+    userProfile.englishProficiency = 'Жоқ'
+  }
+  if (userProfile?.englishProficiency == true) {
+    userProfile.englishProficiency = 'Иә'
+  }
+
   return (
     <div>
       <HeaderComponent scrollTo={scrollTo} />
@@ -63,16 +96,37 @@ const Profile = () => {
                   {userProfile?.username}
                 </span>
                 <h5 className="mt-2 mb-0">
-                  {userProfile?.firstName} {userProfile?.lastName}
+                  ТАӘ: {userProfile?.firstName} {userProfile?.lastName}{' '}
+                  {userProfile?.middleName}
                 </h5>
-                <span>{userProfile?.email}</span>
                 <div className="px-4 mt-1">
-                  <p className="fonts"> group:{userProfile?.group.nameKaz}</p>
                   <p className="fonts">
-                    subject:{userProfile?.subject.nameKaz}
+                    {' '}
+                    Жұмыс орны: {userProfile?.group?.nameKaz}
                   </p>
                   <p className="fonts">
-                    Date of Birth:{userProfile?.birthDate}
+                    Оқытылатын пән: {userProfile?.subject?.nameKaz}
+                  </p>
+                  <p className="fonts">
+                    Туылған күні: <b>{birthDateFormated}</b>
+                  </p>
+                  <p className="fonts">
+                    Біліктілік санаты: {userProfile?.category?.nameKaz}
+                  </p>
+
+                  <p className="fonts">
+                    Оқыту тілі: {userProfile?.isKazakhProficient}
+                  </p>
+                  <p className="fonts">
+                    Ағылшын тілін білуі: {userProfile?.englishProficiency}
+                  </p>
+                  <p className="fonts">
+                    Осы мектептегі жұмыс өтілі:{' '}
+                    {userProfile?.pedagogicalExperienceCurrent}
+                  </p>
+                  <p className="fonts">
+                    Жалпы педагогикалық еңбек өтілі:{' '}
+                    {userProfile?.pedagogicalExperience}
                   </p>
                 </div>
                 <div className="buttons d-flex justify-content-around ml-5">
@@ -84,15 +138,20 @@ const Profile = () => {
                   >
                     Басты бетке өту
                   </button>
+                  <button
+                    className="btn btn-outline-primary px-4"
+                    onClick={() => {
+                      navigate('/register')
+                    }}
+                  >
+                    Толықтыру
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <h1>My Registered Olympiad</h1>
-      <h3>Ұстаз Олимпиадасына тіркелдіңіз</h3>
-      <BasicModal userProfile={userProfile} />
     </div>
   )
 }

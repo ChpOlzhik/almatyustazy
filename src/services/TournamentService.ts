@@ -48,5 +48,60 @@ class TournamentService {
       },
     });
   }
+  async registerTournament(
+    tournamentId: number,
+    name: string,
+    choices: number,
+    presentationUrl: string,
+    applicationUrl: string
+  ): Promise<AxiosResponse<any>> {
+    return axios.post(
+      API_URL + "/student/team/create",
+      {
+        tournamentId,
+        name,
+        choices,
+        presentationUrl,
+        applicationUrl,
+      },
+      {
+        headers: {
+          Authorization:
+            "Bearer " +
+            JSON.parse(localStorage.getItem("user") || "{}")
+              .authenticationToken,
+        },
+      }
+    );
+  }
+
+  async sendForm(formData: FormData): Promise<AxiosResponse<any>> {
+    return axios.post(
+      API_URL + "/student/team/uploadAndSetApplicationForm",
+      formData,
+      {
+        headers: {
+          Authorization:
+            "Bearer " +
+            JSON.parse(localStorage.getItem("user") || "{}")
+              .authenticationToken,
+        },
+      }
+    );
+  }
+  async sendPresentation(formData: FormData): Promise<AxiosResponse<any>> {
+    return axios.post(
+      API_URL + "/student/team/uploadAndSetPresentation",
+      formData,
+      {
+        headers: {
+          Authorization:
+            "Bearer " +
+            JSON.parse(localStorage.getItem("user") || "{}")
+              .authenticationToken,
+        },
+      }
+    );
+  }
 }
 export default new TournamentService();
