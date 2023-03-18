@@ -91,6 +91,20 @@ class AuthService {
         return response.data;
       });
   }
+  async sendPhoto(formData: FormData): Promise<AxiosResponse<any>> {
+    return axios.post(
+      "https://almatyustazy.akylgroup.com.kz/profile/uploadAndSetProfilePhoto",
+      formData,
+      {
+        headers: {
+          Authorization:
+            "Bearer " +
+            JSON.parse(localStorage.getItem("user") || "{}")
+              .authenticationToken,
+        },
+      }
+    );
+  }
 }
 
 export default new AuthService();

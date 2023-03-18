@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import AuthService from '../../../services/AuthService'
 import HeaderComponent from '../../../components/Header/Header.component'
 import { AxiosResponse } from 'axios'
+import Button from '@mui/material/Button'
 
 const Login = () => {
   const [isLogin, setIsLogin] = React.useState(true)
@@ -93,7 +94,7 @@ const Login = () => {
                   />
                   <span className={classes.login + ' mt-3'}>
                     {' '}
-                    {isLogin ? 'Log in' : 'Sign In'}{' '}
+                    {isLogin ? 'Кіру' : 'Регистрация'}{' '}
                   </span>{' '}
                 </div>
 
@@ -108,7 +109,7 @@ const Login = () => {
                       }
                     >
                       <div className={classes.signInCard}>
-                        <span> First Name: </span>{' '}
+                        <span> Аты: </span>{' '}
                         <input
                           className={classes.formControl}
                           required
@@ -117,7 +118,7 @@ const Login = () => {
                         />{' '}
                       </div>{' '}
                       <div className={classes.signInCard}>
-                        <span> Last Name: </span>{' '}
+                        <span> Тегі: </span>{' '}
                         <input
                           className={classes.formControl}
                           required
@@ -126,7 +127,7 @@ const Login = () => {
                         />{' '}
                       </div>{' '}
                       <div className={classes.signInCard}>
-                        <span> Middle Name: </span>{' '}
+                        <span> Отчество: </span>{' '}
                         <input
                           className={classes.formControl}
                           required
@@ -151,7 +152,7 @@ const Login = () => {
                         isLogin ? 'd-flex flex-column mt-3' : classes.signInCard
                       }
                     >
-                      <span> Username </span>{' '}
+                      <span> Никнейм: </span>{' '}
                       <input
                         className={classes.formControl}
                         required
@@ -164,7 +165,7 @@ const Login = () => {
                         isLogin ? 'd-flex flex-column mt-3' : classes.signInCard
                       }
                     >
-                      <span className="mt-3"> Password </span>{' '}
+                      <span className="mt-3"> Пароль: </span>{' '}
                       <input
                         className={classes.formControl}
                         required
@@ -179,7 +180,8 @@ const Login = () => {
                       )}
                     </div>{' '}
                   </div>
-                  <button
+                  <Button
+                    variant="contained"
                     type="submit"
                     className={
                       'mt-4 btn-dark d-flex justify-content-center align-items-center' +
@@ -187,8 +189,8 @@ const Login = () => {
                     }
                   >
                     {' '}
-                    {isLogin ? 'Login' : 'Sign In'}{' '}
-                  </button>
+                    {isLogin ? 'Кіру' : 'Жазылу'}{' '}
+                  </Button>
                   <div
                     className={
                       classes.text2 + ' mt-4 d-flex flex-row align-items-center'
@@ -196,14 +198,14 @@ const Login = () => {
                   >
                     <span>
                       {' '}
-                      {isLogin ? "Don't have an account? " : 'Have an account '}
+                      {isLogin ? 'Аккаунт Бар ма? ' : 'Have an account '}
                       <Link
                         className={classes.register}
                         onClick={switchAuthModeHandler}
                         to={''}
                       >
                         {' '}
-                        {isLogin ? 'Register here' : 'Login Here'}{' '}
+                        {isLogin ? 'Тіркелу' : 'Кіру'}{' '}
                       </Link>{' '}
                     </span>{' '}
                   </div>{' '}

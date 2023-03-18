@@ -49,20 +49,12 @@ class TournamentService {
     });
   }
   async registerTournament(
-    tournamentId: number,
-    name: string,
-    choices: number,
-    presentationUrl: string,
-    applicationUrl: string
+    presentationUrl: string
   ): Promise<AxiosResponse<any>> {
-    return axios.post(
-      API_URL + "/student/team/create",
+    return axios.put(
+      API_URL + "/student/team/update",
       {
-        tournamentId,
-        name,
-        choices,
         presentationUrl,
-        applicationUrl,
       },
       {
         headers: {

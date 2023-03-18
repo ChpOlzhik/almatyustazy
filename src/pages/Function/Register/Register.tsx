@@ -3,7 +3,7 @@ import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import classes from './Register.module.scss'
 import { Button, FormControl, InputLabel, Select } from '@mui/material'
-import axios, { all } from 'axios'
+import axios, { all, AxiosError } from 'axios'
 import MenuItem from '@mui/material/MenuItem'
 import UploadButtons from '../../../components/Upload/Upload.component'
 import HeaderComponent from '../../../components/Header/Header.component'
@@ -13,6 +13,7 @@ import { schools, subjects } from '../../../models/data'
 import AuthService from '../../../services/AuthService'
 import TournamentService from '../../../services/TournamentService'
 import { useNavigate } from 'react-router-dom'
+import Alert from '@mui/material/Alert'
 
 const languages = [
   {
@@ -65,7 +66,10 @@ const RegisterDoctor = () => {
     pedagogicalExperienceCurrent: '',
     pedagogicalExperience: '',
   })
-  console.log(all)
+  const [state, setState] = React.useState<{
+    success: null | boolean
+    error: null | boolean
+  }>({ success: null, error: null })
 
   const scrollTo = (name: string) => {}
   const send = () => {
@@ -93,7 +97,13 @@ const RegisterDoctor = () => {
           pedagogicalExperience: '',
         }),
       )
-      .finally(() => navigate('/profile'))
+
+      .catch((err: AxiosError) => {
+        setState((prevState) => ({ ...prevState, error: true }))
+      })
+    if (state.error == false) {
+      navigate('/profile')
+    }
   }
 
   return (
@@ -223,6 +233,11 @@ const RegisterDoctor = () => {
           >
             Register
           </Button>
+          {state.error == true && (
+            <Alert severity="error">
+              This is an error alert — check it out!
+            </Alert>
+          )}
         </div>
       </Box>
     </div>

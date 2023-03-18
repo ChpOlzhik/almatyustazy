@@ -9,8 +9,12 @@ import Now from './pages/Content/Now'
 import Stages from './pages/Content/Stages'
 import All from './pages/Function/All/All'
 import RoutesComponent from './routes/Routes'
-
+import { useTranslation } from 'react-i18next'
 function App() {
+  const { t, i18n } = useTranslation()
+  const changeLanguage = (language: string) => {
+    i18n.changeLanguage(language)
+  }
   return (
     <div className="wrapper">
       <RoutesComponent />

@@ -2,6 +2,9 @@ import * as React from 'react'
 import Button from '@mui/material/Button'
 import Stack from '@mui/material/Stack'
 import { useNavigate } from 'react-router-dom'
+import { AxiosError } from 'axios'
+import Alert from '@mui/material/Alert'
+import AuthService from '../../services/AuthService'
 type Props = {
   userProfile: any
 }
@@ -15,27 +18,22 @@ export default function UploadButtons({ userProfile }: Props) {
   const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedFiles(event.target.files)
   }
+  const [state, setState] = React.useState<{
+    success: null | boolean
+    error: null | boolean
+  }>({ success: null, error: null })
+  console.log(state)
+
   const navigate = useNavigate()
   const sendFile = () => {
-    fetch(
-      'https://almatyustazy.akylgroup.com.kz/profile/uploadAndSetProfilePhoto',
-      {
-        method: 'POST',
-        body: formData,
-        headers: {
-          Authorization:
-            'Bearer ' +
-            JSON.parse(localStorage.getItem('user') || '{}')
-              .authenticationToken,
-        },
-      },
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        console.log('Success:', data)
+    AuthService.sendPhoto(formData)
+      .then((res) => {
+        console.log(res)
+        setState((prevState) => ({ ...prevState, error: false }))
       })
-      .catch((error) => {
-        console.error('Error:', error)
+
+      .catch((err: AxiosError) => {
+        setState((prevState) => ({ ...prevState, error: true }))
       })
   }
 
@@ -59,6 +57,20 @@ export default function UploadButtons({ userProfile }: Props) {
       <Button variant="outlined" onClick={sendFile}>
         Жіберу
       </Button>
+
+      {state.error == true && (
+        <Alert severity="error">This is an error alert — check it out!</Alert>
+      )}
+      {state.error == false && (
+        <Alert
+          style={{
+            marginTop: 10,
+          }}
+          severity="success"
+        >
+          This is a success alert — check it out!
+        </Alert>
+      )}
     </Stack>
   )
 }

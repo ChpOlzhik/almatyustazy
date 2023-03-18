@@ -3,6 +3,7 @@ import '../../index.scss'
 import Input from '../../components/Input/Input.component'
 import CheckBox from '../../components/CheckBox/CheckBox.component'
 const Now: React.FC = () => {
+  const handleOpen = () => {}
   return (
     <>
       <div className="now">
@@ -14,7 +15,7 @@ const Now: React.FC = () => {
           </p>
         </div>
         <div>
-          <Input />
+          <Input handleOpen={handleOpen} />
           <CheckBox />
         </div>
       </div>
