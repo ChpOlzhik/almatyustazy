@@ -39,6 +39,11 @@ export default function Input({ handleOpen }: Props) {
           if (localStorage.getItem('user') && data.category) {
             handleOpen()
           } else if (localStorage.getItem('user') && data.category === null) {
+            if (i18n.language == 'kz') {
+              alert('Жеке кабинеттегі мәліметтерді толықтырыңыз')
+            } else if (i18n.language == 'ru') {
+              alert('Добавьте незаполненые данные в профиле')
+            }
             navigate('/register')
           } else {
             navigate('/login')

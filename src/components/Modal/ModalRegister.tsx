@@ -70,16 +70,21 @@ export default function ModalRegister({ handleClose, open }: Props) {
         setError(true)
       })
   }
+  const { t, i18n } = useTranslation()
 
   const sendSecond = () => {
     setFormState('pending')
     if (selectedFile2) {
       TournamentService.sendPresentation(formData2)
         .then((response) => {
-          // handle success response
           setFormState('submitted')
         })
         .finally(() => {
+          if (i18n.language === 'kz') {
+            alert('Қабылданды')
+          } else if (i18n.language === 'ru') {
+            alert('Принято')
+          }
           handleClose()
         })
         .catch((err: AxiosError) => {
@@ -93,7 +98,6 @@ export default function ModalRegister({ handleClose, open }: Props) {
       })
     }
   }
-  const { t } = useTranslation()
 
   return (
     <div>
