@@ -65,13 +65,17 @@ body {
     box-shadow: 0 0 100px rgba(255, 118, 118, 0.5);
 }
 
+.first {
+    height: 900px;
+}
+
 .active {
     margin-left: -300px;
 }
 
 .passive {
     margin-left: 100px;
-    height: 900px;
+    height: 1000px;
 }
 
 .one {

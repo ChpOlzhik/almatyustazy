@@ -95,5 +95,32 @@ class TournamentService {
       }
     );
   }
+  async getGroups(): Promise<AxiosResponse<any>> {
+    return axios.get(API_URL + "/profile/groups", {
+      headers: {
+        Authorization:
+          "Bearer " +
+          JSON.parse(localStorage.getItem("user") || "{}").authenticationToken,
+      },
+    });
+  }
+  async getCategories(): Promise<AxiosResponse<any>> {
+    return axios.get(API_URL + "/profile/categories", {
+      headers: {
+        Authorization:
+          "Bearer " +
+          JSON.parse(localStorage.getItem("user") || "{}").authenticationToken,
+      },
+    });
+  }
+  async getSubjects(): Promise<AxiosResponse<any>> {
+    return axios.get(API_URL + "/profile/subjects", {
+      headers: {
+        Authorization:
+          "Bearer " +
+          JSON.parse(localStorage.getItem("user") || "{}").authenticationToken,
+      },
+    });
+  }
 }
 export default new TournamentService();

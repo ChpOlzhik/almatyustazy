@@ -14,6 +14,7 @@ import AuthService from '../../../services/AuthService'
 import TournamentService from '../../../services/TournamentService'
 import { useNavigate } from 'react-router-dom'
 import Alert from '@mui/material/Alert'
+import { useTranslation } from 'react-i18next'
 
 const languages = [
   {
@@ -49,13 +50,29 @@ const englishProficiencyInRussian = [
 ]
 
 const RegisterDoctor = () => {
-  const navigate = useNavigate()
+  const [group, setGroup] = React.useState<any>([])
+  const [subject, setSubject] = React.useState<any>([])
+  const [categories, setCategories] = React.useState<any>([])
   const [userProfile, setUserProfile] = React.useState<any>([])
   React.useEffect(() => {
+    const group = TournamentService.getGroups().then((res: any) =>
+      setGroup(res.data),
+    )
+    const subject = TournamentService.getSubjects().then((res: any) =>
+      setSubject(res.data),
+    )
+    const categories = TournamentService.getCategories().then((res: any) =>
+      setCategories(res.data),
+    )
     const user = AuthService.getCurrentUser()
     user.then((res) => setUserProfile(res))
   }, [])
-  console.log(userProfile)
+  console.log(group)
+  console.log(subject)
+  console.log(categories)
+
+  const navigate = useNavigate()
+
   const [value, setValue] = React.useState<Dayjs>(dayjs(''))
   const [all, setAll] = React.useState({
     group: '',
@@ -66,6 +83,7 @@ const RegisterDoctor = () => {
     pedagogicalExperienceCurrent: '',
     pedagogicalExperience: '',
   })
+  console.log(all)
   const [state, setState] = React.useState<{
     success: null | boolean
     error: null | boolean
@@ -97,6 +115,9 @@ const RegisterDoctor = () => {
           pedagogicalExperience: '',
         }),
       )
+      .then(() => {
+        setState((prevState) => ({ ...prevState, success: false }))
+      })
 
       .catch((err: AxiosError) => {
         setState((prevState) => ({ ...prevState, error: true }))
@@ -105,6 +126,7 @@ const RegisterDoctor = () => {
       navigate('/profile')
     }
   }
+  const { t, i18n } = useTranslation()
 
   return (
     <div className={classes.main}>
@@ -121,14 +143,27 @@ const RegisterDoctor = () => {
         <div>
           <UploadButtons userProfile={userProfile} />
           <DatePickerValue value={value} setValue={setValue} />
-          <TextField
-            id="outlined"
-            label="Біліктілік санаты"
-            value={all.category}
-            onChange={(e) => setAll({ ...all, category: e.target.value })}
-          />
+
+          <FormControl sx={{ m: 1, minWidth: 300 }}>
+            <InputLabel>{t('degree')}</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={all.category}
+              label="School"
+              onChange={(e) => setAll({ ...all, category: e.target.value })}
+            >
+              {categories?.map((item: any) => {
+                return (
+                  <MenuItem value={item.id} key={item.id}>
+                    {i18n.language === 'kz' ? item.nameRus : item.nameKaz}
+                  </MenuItem>
+                )
+              })}
+            </Select>
+          </FormControl>
           <FormControl sx={{ m: 1, minWidth: 180 }}>
-            <InputLabel>School</InputLabel>
+            <InputLabel>{t('school')}</InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
@@ -136,17 +171,19 @@ const RegisterDoctor = () => {
               label="School"
               onChange={(e) => setAll({ ...all, group: e.target.value })}
             >
-              {schools.map((item) => {
+              {group?.map((item: any) => {
                 return (
                   <MenuItem value={item.id} key={item.id}>
-                    {item.name}
+                    {i18n.language === 'kz' ? item.nameKaz : item.nameRus}
                   </MenuItem>
                 )
               })}
             </Select>
           </FormControl>
-          <FormControl sx={{ m: 1, minWidth: 180 }}>
-            <InputLabel id="demo-simple-select-label">subject</InputLabel>
+          <FormControl sx={{ m: 1, minWidth: 250 }}>
+            <InputLabel id="demo-simple-select-label">
+              {t('subject')}
+            </InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
@@ -154,10 +191,10 @@ const RegisterDoctor = () => {
               label="Subject"
               onChange={(e) => setAll({ ...all, subject: e.target.value })}
             >
-              {subjects.map((item) => {
+              {subject?.map((item: any) => {
                 return (
                   <MenuItem value={item.id} key={item.id}>
-                    {item.name}
+                    {i18n.language === 'kz' ? item.nameKaz : item.nameRus}
                   </MenuItem>
                 )
               })}
@@ -166,7 +203,7 @@ const RegisterDoctor = () => {
           <TextField
             required
             id="outlined-required"
-            label="Осы мектептегі жұмыс өтілі"
+            label={t('current')}
             value={all.pedagogicalExperienceCurrent}
             onChange={(e) =>
               setAll({ ...all, pedagogicalExperienceCurrent: e.target.value })
@@ -175,14 +212,16 @@ const RegisterDoctor = () => {
           <TextField
             required
             id="outlined-required"
-            label="Жалпы педагогикалық еңбек өтілі"
+            label={t('time')}
             value={all.pedagogicalExperience}
             onChange={(e) =>
               setAll({ ...all, pedagogicalExperience: e.target.value })
             }
           />
           <FormControl sx={{ m: 1, minWidth: 180 }}>
-            <InputLabel id="demo-simple-select-label">Оқыту тілі</InputLabel>
+            <InputLabel id="demo-simple-select-label">
+              {t('language')}
+            </InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
@@ -202,9 +241,9 @@ const RegisterDoctor = () => {
             </Select>
           </FormControl>
 
-          <FormControl sx={{ m: 1, minWidth: 180 }}>
+          <FormControl sx={{ m: 1, minWidth: 270 }}>
             <InputLabel id="demo-simple-select-label">
-              Ағылшын тілін білуі
+              {t('english')}
             </InputLabel>
             <Select
               labelId="demo-simple-select-label"
@@ -215,13 +254,13 @@ const RegisterDoctor = () => {
                 setAll({ ...all, englishProficiency: e.target.value })
               }
             >
-              {englishProficiencyInKazakh.map((item) => {
-                return (
-                  <MenuItem value={item.id} key={item.id}>
-                    {item.name}
-                  </MenuItem>
-                )
-              })}
+              {i18n.language == 'kz'
+                ? englishProficiencyInKazakh.map((item) => {
+                    return <MenuItem value={item.id}>{item.name}</MenuItem>
+                  })
+                : englishProficiencyInRussian.map((item) => {
+                    return <MenuItem value={item.id}>{item.name}</MenuItem>
+                  })}
             </Select>
           </FormControl>
           <Button
@@ -231,7 +270,7 @@ const RegisterDoctor = () => {
             }}
             onClick={send}
           >
-            Register
+            {t('send')}
           </Button>
           {state.error == true && (
             <Alert severity="error">

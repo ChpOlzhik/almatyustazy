@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { AxiosError } from 'axios'
 import Alert from '@mui/material/Alert'
 import AuthService from '../../services/AuthService'
+import { useTranslation } from 'react-i18next'
 type Props = {
   userProfile: any
 }
@@ -12,6 +13,7 @@ export default function UploadButtons({ userProfile }: Props) {
   const [selectedFiles, setSelectedFiles] = React.useState<FileList | null>(
     null,
   )
+  const { t } = useTranslation()
 
   const formData = new FormData()
   formData.append('file', selectedFiles?.item(0) as File)
@@ -22,7 +24,6 @@ export default function UploadButtons({ userProfile }: Props) {
     success: null | boolean
     error: null | boolean
   }>({ success: null, error: null })
-  console.log(state)
 
   const navigate = useNavigate()
   const sendFile = () => {
@@ -50,17 +51,14 @@ export default function UploadButtons({ userProfile }: Props) {
           className="rounded-circle"
         />
       </div>
-      <Button variant="contained" component="label">
-        Сурет қосу
-        <input hidden multiple type="file" onChange={handleUpload} />
+      <Button variant="outlined" component="label">
+        <input multiple type="file" onChange={handleUpload} />
       </Button>
       <Button variant="outlined" onClick={sendFile}>
-        Жіберу
+        фото {t('send')}
       </Button>
 
-      {state.error == true && (
-        <Alert severity="error">This is an error alert — check it out!</Alert>
-      )}
+      {state.error == true && <Alert severity="error">{t('error')}</Alert>}
       {state.error == false && (
         <Alert
           style={{
@@ -68,7 +66,7 @@ export default function UploadButtons({ userProfile }: Props) {
           }}
           severity="success"
         >
-          This is a success alert — check it out!
+          {t('success')}
         </Alert>
       )}
     </Stack>

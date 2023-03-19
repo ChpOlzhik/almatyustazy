@@ -3,6 +3,7 @@ import HeaderComponent from '../../../components/Header/Header.component'
 import AuthService from '../../../services/AuthService'
 import BasicModal from './ModalProfile'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 type pofileType = {
   username: string
   email: string
@@ -33,6 +34,7 @@ type pofileType = {
 }
 
 const Profile = () => {
+  const { t, i18n } = useTranslation()
   const [userProfile, setUserProfile] = React.useState<any>()
   React.useEffect(() => {
     const user = AuthService.getCurrentUser()
@@ -71,7 +73,9 @@ const Profile = () => {
   if (userProfile?.englishProficiency == true) {
     userProfile.englishProficiency = 'Иә'
   }
-
+  console.log(userProfile)
+  if (i18n.language) {
+  }
   return (
     <div>
       <HeaderComponent scrollTo={scrollTo} />
@@ -96,37 +100,47 @@ const Profile = () => {
                   {userProfile?.username}
                 </span>
                 <h5 className="mt-2 mb-0">
-                  ТАӘ: {userProfile?.firstName} {userProfile?.lastName}{' '}
+                  {t('full')}: {userProfile?.firstName} {userProfile?.lastName}{' '}
                   {userProfile?.middleName}
                 </h5>
                 <div className="px-4 mt-1">
                   <p className="fonts">
-                    {' '}
-                    Жұмыс орны: {userProfile?.group?.nameKaz}
+                    {t('school')}:{' '}
+                    {i18n.language === 'ru'
+                      ? userProfile?.group?.nameRus
+                      : userProfile?.group?.nameKaz}
                   </p>
                   <p className="fonts">
-                    Оқытылатын пән: {userProfile?.subject?.nameKaz}
+                    {t('subject')}:{' '}
+                    {i18n.language === 'ru'
+                      ? userProfile?.subject?.nameRus
+                      : userProfile?.subject?.nameKaz}
                   </p>
                   <p className="fonts">
-                    Туылған күні: <b>{birthDateFormated}</b>
+                    {t('birthday')}: <b>{birthDateFormated}</b>
                   </p>
                   <p className="fonts">
-                    Біліктілік санаты: {userProfile?.category?.nameKaz}
+                    {t('degree')}:{' '}
+                    {i18n.language === 'ru'
+                      ? userProfile?.category?.nameKaz
+                      : userProfile?.category?.nameRus}
                   </p>
 
                   <p className="fonts">
-                    Оқыту тілі: {userProfile?.isKazakhProficient}
+                    {t('language')}:{' '}
+                    {userProfile?.isKazakhProficient === 1
+                      ? 'Қазақша'
+                      : 'Русский'}
                   </p>
                   <p className="fonts">
-                    Ағылшын тілін білуі: {userProfile?.englishProficiency}
+                    {t('english')}:{' '}
+                    {userProfile?.englishProficiency === 1 ? t('yes') : t('no')}
                   </p>
                   <p className="fonts">
-                    Осы мектептегі жұмыс өтілі:{' '}
-                    {userProfile?.pedagogicalExperienceCurrent}
+                    {t('current')}: {userProfile?.pedagogicalExperienceCurrent}
                   </p>
                   <p className="fonts">
-                    Жалпы педагогикалық еңбек өтілі:{' '}
-                    {userProfile?.pedagogicalExperience}
+                    {t('time')}: {userProfile?.pedagogicalExperience}
                   </p>
                 </div>
                 <div className="buttons d-flex justify-content-around ml-5">
@@ -136,7 +150,7 @@ const Profile = () => {
                       window.location.href = '/'
                     }}
                   >
-                    Басты бетке өту
+                    {t('mainPage')}
                   </button>
                   <button
                     className="btn btn-outline-primary px-4"
@@ -144,7 +158,7 @@ const Profile = () => {
                       navigate('/register')
                     }}
                   >
-                    Толықтыру
+                    {t('more')}
                   </button>
                 </div>
               </div>

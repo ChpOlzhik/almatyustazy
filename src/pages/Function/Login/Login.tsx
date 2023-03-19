@@ -6,7 +6,10 @@ import AuthService from '../../../services/AuthService'
 import HeaderComponent from '../../../components/Header/Header.component'
 import { AxiosResponse } from 'axios'
 import Button from '@mui/material/Button'
-
+import { useTranslation } from 'react-i18next'
+type Props = {
+  word: string
+}
 const Login = () => {
   const [isLogin, setIsLogin] = React.useState(true)
   const [all, setAll] = React.useState({
@@ -57,7 +60,6 @@ const Login = () => {
       email: '',
     })
   }
-  console.log(error)
 
   function setFirstName(value: string): void {
     setAll((prevState) => ({ ...prevState, firstName: value }))
@@ -77,6 +79,7 @@ const Login = () => {
   function setPassword(value: string): void {
     setAll((prevState) => ({ ...prevState, password: value }))
   }
+  const { t } = useTranslation()
 
   return (
     <>
@@ -94,7 +97,7 @@ const Login = () => {
                   />
                   <span className={classes.login + ' mt-3'}>
                     {' '}
-                    {isLogin ? 'Кіру' : 'Регистрация'}{' '}
+                    {isLogin ? t('login') : t('register')}
                   </span>{' '}
                 </div>
 
@@ -109,29 +112,26 @@ const Login = () => {
                       }
                     >
                       <div className={classes.signInCard}>
-                        <span> Аты: </span>{' '}
+                        <span> {t('name')}: </span>{' '}
                         <input
                           className={classes.formControl}
                           required
-                          placeholder="Enter Your First Name"
                           onChange={(e) => setFirstName(e.target.value)}
                         />{' '}
                       </div>{' '}
                       <div className={classes.signInCard}>
-                        <span> Тегі: </span>{' '}
+                        <span> {t('surname')}: </span>{' '}
                         <input
                           className={classes.formControl}
                           required
-                          placeholder="Enter Your Last Name"
                           onChange={(e) => setLastName(e.target.value)}
                         />{' '}
                       </div>{' '}
                       <div className={classes.signInCard}>
-                        <span> Отчество: </span>{' '}
+                        <span> {t('middle')}: </span>{' '}
                         <input
                           className={classes.formControl}
                           required
-                          placeholder="Enter Your Middle Name"
                           onChange={(e) => setMiddleName(e.target.value)}
                         />{' '}
                       </div>{' '}
@@ -140,7 +140,6 @@ const Login = () => {
                         <input
                           className={classes.formControl}
                           required
-                          placeholder="Enter Your Email"
                           onChange={(e) => setEmail(e.target.value)}
                         />{' '}
                       </div>{' '}
@@ -156,7 +155,9 @@ const Login = () => {
                       <input
                         className={classes.formControl}
                         required
-                        placeholder="Enter Your Username"
+                        placeholder={
+                          t('writeNickname') + '...' // "Логин енгізіңіз"
+                        }
                         onChange={(e) => setUserName(e.target.value)}
                       />{' '}
                     </div>
@@ -165,12 +166,12 @@ const Login = () => {
                         isLogin ? 'd-flex flex-column mt-3' : classes.signInCard
                       }
                     >
-                      <span className="mt-3"> Пароль: </span>{' '}
+                      <span className="mt-3"> {t('password')} </span>{' '}
                       <input
                         className={classes.formControl}
                         required
                         type="password"
-                        placeholder="Enter Your Password"
+                        placeholder={t('writePassword') + '...'} // "Пароль енгізіңіз"
                         onChange={(e) => setPassword(e.target.value)}
                       />{' '}
                       {error && (
@@ -189,7 +190,7 @@ const Login = () => {
                     }
                   >
                     {' '}
-                    {isLogin ? 'Кіру' : 'Жазылу'}{' '}
+                    {isLogin ? t('login') : t('register')}{' '}
                   </Button>
                   <div
                     className={
@@ -197,15 +198,13 @@ const Login = () => {
                     }
                   >
                     <span>
-                      {' '}
-                      {isLogin ? 'Аккаунт Бар ма? ' : 'Have an account '}
                       <Link
                         className={classes.register}
                         onClick={switchAuthModeHandler}
                         to={''}
                       >
                         {' '}
-                        {isLogin ? 'Тіркелу' : 'Кіру'}{' '}
+                        {isLogin ? t('register') : t('login')}{' '}
                       </Link>{' '}
                     </span>{' '}
                   </div>{' '}

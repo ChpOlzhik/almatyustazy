@@ -12,14 +12,14 @@ import { Link } from 'react-router-dom'
 import ButtonComponent from '../Button/Button.component'
 import { Link as NLink } from 'react-scroll'
 import TabsComponent from '../Tabs/Tabs.component'
-
-const pages = ['Спикерлер', 'Байқау кезеңдері', 'Жүлделер', 'Қатысушы болу']
+import { useTranslation } from 'react-i18next'
 
 type Props = {
   scrollTo: (name: string) => void
 }
 function HeaderComponent({ scrollTo }: Props) {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
+
   const handleClick = (name: string) => {
     scrollTo(name)
   }
@@ -33,6 +33,7 @@ function HeaderComponent({ scrollTo }: Props) {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null)
   }
+  const { t, i18n } = useTranslation()
 
   return (
     <AppBar
@@ -73,120 +74,6 @@ function HeaderComponent({ scrollTo }: Props) {
             </Link>
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="default"
-            >
-              <MenuIcon />
-            </IconButton>
-            <div>
-              <Link to="/" className="nav-link">
-                <img
-                  src="https://almatyustazy.kz/img_almaty_ustaz/logo.svg"
-                  alt="almaty"
-                  height="60"
-                  width="120"
-                />
-              </Link>
-            </div>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
-            >
-              <MenuItem
-                onClick={handleCloseNavMenu}
-                style={{ color: 'black' }}
-                className="pages"
-              >
-                <button
-                  style={{
-                    backgroundColor: 'white',
-                    border: 'none',
-                    outline: 'none',
-                  }}
-                  onClick={() => {
-                    handleClick('Спикерлер')
-                  }}
-                >
-                  <b>Спикерлер</b>
-                </button>
-              </MenuItem>
-              <MenuItem
-                onClick={handleCloseNavMenu}
-                style={{ color: 'black' }}
-                className="pages"
-              >
-                <button
-                  style={{
-                    backgroundColor: 'white',
-                    border: 'none',
-                    outline: 'none',
-                  }}
-                  onClick={() => {
-                    handleClick('Байқау кезеңдері')
-                  }}
-                >
-                  <b>Байқау кезеңдері</b>
-                </button>
-              </MenuItem>
-              <MenuItem
-                onClick={handleCloseNavMenu}
-                style={{ color: 'black' }}
-                className="pages"
-              >
-                <button
-                  style={{
-                    backgroundColor: 'white',
-                    border: 'none',
-                    outline: 'none',
-                  }}
-                  onClick={() => {
-                    handleClick('Жүлделер')
-                  }}
-                >
-                  <b>Жүлделер</b>
-                </button>
-              </MenuItem>
-              <MenuItem
-                onClick={handleCloseNavMenu}
-                style={{ color: 'black' }}
-                className="pages"
-              >
-                <button
-                  style={{
-                    backgroundColor: 'white',
-                    border: 'none',
-                    outline: 'none',
-                  }}
-                  onClick={() => {
-                    handleClick('Қатысушы болу')
-                  }}
-                >
-                  <b>Қатысушы болу</b>
-                </button>
-              </MenuItem>
-            </Menu>
-          </Box>
-
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             <div className="pages" style={{ color: 'black' }}>
               <button
@@ -199,7 +86,7 @@ function HeaderComponent({ scrollTo }: Props) {
                   handleClick('Спикерлер')
                 }}
               >
-                <b>Спикерлер</b>
+                <b>{t('speakers')}</b>
               </button>
             </div>
             <div className="pages" style={{ color: 'black' }}>
@@ -213,7 +100,7 @@ function HeaderComponent({ scrollTo }: Props) {
                   handleClick('Байқау кезеңдері')
                 }}
               >
-                <b>Байқау кезеңдері</b>
+                <b>{t('stages')}</b>
               </button>
             </div>
             <div className="pages" style={{ color: 'black' }}>
@@ -227,7 +114,7 @@ function HeaderComponent({ scrollTo }: Props) {
                   handleClick('Жүлделер')
                 }}
               >
-                <b>Жүлделер</b>
+                <b>{t('prize')}</b>
               </button>
             </div>
             <div className="pages" style={{ color: 'black' }}>
@@ -241,14 +128,14 @@ function HeaderComponent({ scrollTo }: Props) {
                   handleClick('Қатысушы болу')
                 }}
               >
-                <b>Қатысушы болу</b>
+                <b>{t('participate')}</b>
               </button>
             </div>
           </Box>
           <Box sx={{ flexGrow: 2 }} className="bet">
             {localStorage.getItem('user') && (
               <ButtonComponent
-                word="Жеке кабинет"
+                word={t('personal')}
                 onClick={() => {
                   window.location.href = '/profile'
                 }}
@@ -256,14 +143,14 @@ function HeaderComponent({ scrollTo }: Props) {
             )}
             {!localStorage.getItem('user') ? (
               <ButtonComponent
-                word="Кіру"
+                word={t('login')}
                 onClick={() => {
                   window.location.href = '/login'
                 }}
               />
             ) : (
               <ButtonComponent
-                word="шығу"
+                word={t('logout')}
                 onClick={() => {
                   localStorage.removeItem('user')
                   window.location.href = '/'

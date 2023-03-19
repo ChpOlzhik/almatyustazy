@@ -1,5 +1,4 @@
 import React from 'react'
-import CarouselComponent from '../../../components/Carousel/Carousel.component'
 import HeaderComponent from '../../../components/Header/Header.component'
 import Come from '../../Content/Come'
 import Final from '../../Content/Final'
@@ -34,7 +33,6 @@ const All: React.FC = () => {
     <div>
       <HeaderComponent scrollTo={scrollTo} />
       <Main />
-      <CarouselComponent />
       <Stages refStage={refStage} refSpeaker={refSpeaker} />
       <Come refParticipant={refParticipants} />
       <Final refPrize={refPrize} />

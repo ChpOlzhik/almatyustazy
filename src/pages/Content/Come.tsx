@@ -1,11 +1,13 @@
 import React from 'react'
 import '../../index.scss'
 import ButtonComponent from '../../components/Button/Button.component'
+import { useTranslation } from 'react-i18next'
 const Come = ({
   refParticipant,
 }: {
   refParticipant: React.RefObject<HTMLInputElement>
 }) => {
+  const { t } = useTranslation()
   return (
     <div ref={refParticipant}>
       <h1
@@ -14,17 +16,12 @@ const Come = ({
           justifyContent: 'center',
         }}
       >
-        {' '}
-        Қатысуға шақырамыз
+        {t('come')}
       </h1>
       <div className="come">
         <div className="comeLeft">
           <b>
-            <p>
-              Конкурсқа Алматы қаласының мемлекеттік білім беру ұйымдарындағы
-              оқу жоспарының барлық пәндері бойынша 36 жасқа дейін қоса алғанда
-              1-11 сынып мұғалімдері қатыса алады
-            </p>
+            <p>{t('age')}</p>
           </b>
           <div className="insidePaper">
             <img
@@ -32,7 +29,7 @@ const Come = ({
               alt=""
             />
             <b>
-              <p>электрондық тіркеуден өтіп, сауалнаманы толтырыңыз</p>
+              <p>{t('wifi')}</p>
             </b>
           </div>
 
@@ -42,10 +39,7 @@ const Come = ({
               alt=""
             />
             <b>
-              <p>
-                түйіндемені, фотосуретті және еңбек өтілі көрсетілген жұмыс
-                орнынан анықтаманың скан-көшірмесін жүктеңіз
-              </p>
+              <p>{t('down')}</p>
             </b>
           </div>
 
@@ -55,12 +49,12 @@ const Come = ({
               alt=""
             />
             <b>
-              <p>академиялық адалдық қағидаттарын сақтаңыз</p>
+              <p>{t('like')}</p>
             </b>
           </div>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <ButtonComponent
-              word="Тіркелу"
+              word={t('register')}
               onClick={() => {
                 window.location.href = '/login'
               }}
