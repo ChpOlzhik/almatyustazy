@@ -1,48 +1,24 @@
-import React from 'react'
 import HeaderComponent from '../../../components/Header/Header.component'
 import AuthService from '../../../services/AuthService'
-import BasicModal from './ModalProfile'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-type pofileType = {
-  username: string
-  email: string
-  firstName: string
-  lastName: string
-  middleName: string
-  birthDate: string
-  profilePhoto: string
-  isKazakhProficient: boolean
-  englishProficiency: boolean
-  pedagogicalExperience: number
-  pedagogicalExperienceCurrent: number
-  group: {
-    id: number
-    nameKaz: string
-    nameRus: string
-  }
-  subject: {
-    id: number
-    nameKaz: string
-    nameRus: string
-  }
-  category: {
-    id: number
-    nameKaz: string
-    nameRus: string
-  }
-}
+import React from 'react'
 
 const Profile = () => {
   const { t, i18n } = useTranslation()
   const [userProfile, setUserProfile] = React.useState<any>()
+  var birthDateFormated = 'Енгізілмеген'
   React.useEffect(() => {
     const user = AuthService.getCurrentUser()
-    user.then((res) => setUserProfile(res))
+    user.then((res) => {
+      setUserProfile(res)
+      localStorage.setItem('data', JSON.stringify(res))
+    })
   }, [])
+
   const navigate = useNavigate()
   const birthDate = new Date(userProfile?.birthDate)
-  var birthDateFormated = 'Енгізілмеген'
+
   if (userProfile?.birthDate !== null) {
     birthDateFormated = `${birthDate.getDate() + 1}.${
       birthDate.getMonth() + 1
@@ -73,9 +49,7 @@ const Profile = () => {
   if (userProfile?.englishProficiency == true) {
     userProfile.englishProficiency = 'Иә'
   }
-  console.log(userProfile)
-  if (i18n.language) {
-  }
+
   return (
     <div>
       <HeaderComponent scrollTo={scrollTo} />
@@ -134,20 +108,26 @@ const Profile = () => {
                   </p>
                   <p className="fonts">
                     {t('english')}:{' '}
-                    {userProfile?.englishProficiency === 1 ? t('yes') : t('no')}
+                    {userProfile?.englishProficiency === 1 ? t('no') : t('yes')}
                   </p>
                   <p className="fonts">
-                    {t('current')}: {userProfile?.pedagogicalExperienceCurrent}
+                    {t('current')}:{' '}
+                    {userProfile?.pedagogicalExperienceCurrent === 0
+                      ? ' '
+                      : userProfile?.pedagogicalExperienceCurrent}
                   </p>
                   <p className="fonts">
-                    {t('time')}: {userProfile?.pedagogicalExperience}
+                    {t('time')}:{' '}
+                    {userProfile?.pedagogicalExperience === 0
+                      ? ' '
+                      : userProfile?.pedagogicalExperience}
                   </p>
                 </div>
                 <div className="buttons d-flex justify-content-around ml-5">
                   <button
                     className="btn btn-outline-primary px-4"
                     onClick={() => {
-                      window.location.href = '/'
+                      navigate('/')
                     }}
                   >
                     {t('mainPage')}

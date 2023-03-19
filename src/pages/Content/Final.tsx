@@ -1,9 +1,11 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import '../../index.scss'
 type FinalProps = {
   refPrize: React.RefObject<HTMLDivElement>
 }
 const Final = ({ refPrize }: FinalProps) => {
+  const { t } = useTranslation()
   return (
     <div className="final" ref={refPrize}>
       <div className="prev">
@@ -13,7 +15,6 @@ const Final = ({ refPrize }: FinalProps) => {
             src="https://almatyustazy.kz/img_almaty_ustaz/final_1.png"
             alt=""
           />
-
           <h1 style={{ color: 'white' }}>Финал</h1>
         </div>
 
@@ -23,28 +24,23 @@ const Final = ({ refPrize }: FinalProps) => {
           alt=""
         />
       </div>
-      <div className="right">
-        <h3>Жарыстың финалы</h3>
+      <div
+        className="right"
+        style={{
+          marginTop: 50,
+        }}
+      >
+        <h3>{t('race')}</h3>
         <h1>Almaty Ustazy</h1>
-        <h1>марапаттау салтанаты</h1>
-        <div>1 орын</div>
-        <p>Гран-при иегері 5 000 000 теңгенің сертификатымен марапатталады.</p>
-        <div>1-5 орын</div>
-        <p>
-          «Білім берудегі жаңа технологиялар» саласы бойынша әлемдік қауымдастық
-          мойындаған оқу орнында оқу тағылымдамасы
-        </p>
+        <h1>{t('x')}</h1>
+        <div>{t('firstPlace')}</div>
+        <p>{t('grand')}</p>
+        <div>{t('secondPlace')}</div>
+        <p>{t('know')}</p>
+        <div>{t('thirdPlace')}</div>
+        <p>{t('almatys')}</p>
 
-        <div>5 финалист</div>
-        <p>
-          Алматы қаласы Білім басқармасының басшысымен панельдік пікірталасқа
-          қатысады
-        </p>
-
-        <p>
-          Әр кезең интенсивінен өткен барлық педагогтер қатысушы сертификатын
-          алады
-        </p>
+        <p>{t('screen')}</p>
       </div>
     </div>
   )

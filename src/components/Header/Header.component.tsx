@@ -8,9 +8,8 @@ import Menu from '@mui/material/Menu'
 import MenuIcon from '@mui/icons-material/Menu'
 import Container from '@mui/material/Container'
 import MenuItem from '@mui/material/MenuItem'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import ButtonComponent from '../Button/Button.component'
-import { Link as NLink } from 'react-scroll'
 import TabsComponent from '../Tabs/Tabs.component'
 import { useTranslation } from 'react-i18next'
 
@@ -18,6 +17,7 @@ type Props = {
   scrollTo: (name: string) => void
 }
 function HeaderComponent({ scrollTo }: Props) {
+  const navigate = useNavigate()
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
 
   const handleClick = (name: string) => {
@@ -137,7 +137,7 @@ function HeaderComponent({ scrollTo }: Props) {
               <ButtonComponent
                 word={t('personal')}
                 onClick={() => {
-                  window.location.href = '/profile'
+                  navigate('/profile')
                 }}
               />
             )}
@@ -145,7 +145,7 @@ function HeaderComponent({ scrollTo }: Props) {
               <ButtonComponent
                 word={t('login')}
                 onClick={() => {
-                  window.location.href = '/login'
+                  navigate('/login')
                 }}
               />
             ) : (
@@ -153,7 +153,8 @@ function HeaderComponent({ scrollTo }: Props) {
                 word={t('logout')}
                 onClick={() => {
                   localStorage.removeItem('user')
-                  window.location.href = '/'
+                  localStorage.removeItem('data')
+                  navigate('/')
                 }}
               />
             )}

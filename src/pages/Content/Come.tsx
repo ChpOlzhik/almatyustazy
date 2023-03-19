@@ -2,12 +2,14 @@ import React from 'react'
 import '../../index.scss'
 import ButtonComponent from '../../components/Button/Button.component'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 const Come = ({
   refParticipant,
 }: {
   refParticipant: React.RefObject<HTMLInputElement>
 }) => {
   const { t } = useTranslation()
+  const navigate = useNavigate()
   return (
     <div ref={refParticipant}>
       <h1
@@ -56,7 +58,7 @@ const Come = ({
             <ButtonComponent
               word={t('register')}
               onClick={() => {
-                window.location.href = '/login'
+                navigate('/login')
               }}
             />
           </div>

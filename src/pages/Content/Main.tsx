@@ -13,13 +13,14 @@ const main: React.FC = () => {
   return (
     <div className="content" id="section1">
       <div className="contentLeft">
-        <h1>{t('greeting')}</h1>
-        <h3 style={{ marginTop: 25 }}>Жаспын, жас та болсам баспын!</h3>
+        <h3>{t('greeting')}</h3>
+        <h1 style={{ marginTop: 25, color: 'blue' }}>
+          Жаспын, жас та болсам баспын!
+        </h1>
         <Input handleOpen={handleOpen} />
         <CheckBox />
         {open && <ModalRegister handleClose={handleClose} open={open} />}
       </div>
-
       <img
         className="contentRight"
         src="https://almatyustazy.kz/local/templates/ustaz/include_areas/kz/images/taglinemob-img.png"

@@ -46,15 +46,6 @@ const Stages = ({ refSpeaker, refStage }: Props) => {
           <p style={{ color: 'blue' }}>{t('thirdStageSix')}</p>
           <div>{t('thirdStageSeven')}</div>
         </div>
-        <div style={{ marginTop: 50 }}>
-          <ButtonComponent
-            word={t('give')}
-            onClick={() => {
-              window.location.href =
-                'https://docs.google.com/forms/d/e/1FAIpQLSd9XjX6jxZ6JvZ8a7Z6G5U6w5j6r5pYh1r6X1XjK7x6H5D2jQ/viewform?usp=sf_link'
-            }}
-          />
-        </div>
       </div>
       <div>
         <h1
@@ -72,10 +63,7 @@ const Stages = ({ refSpeaker, refStage }: Props) => {
             />
             <div>
               <h3 style={{ color: 'white' }}>Ричард Кулатта</h3>
-              <p style={{ color: 'white' }}>
-                Білім берудегі цифрлық технологиялармен айналысатын АҚШ-тың ең
-                ірі компаниясының ISTE директоры
-              </p>
+              <p style={{ color: 'white' }}>{t('richard')}</p>
               <h3 style={{ color: 'white' }}>
                 «Қашықтан оқытудың цифрлық қызметтері мен құралдары»
               </h3>

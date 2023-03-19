@@ -47,7 +47,6 @@ class AuthService {
       .then((response) => {
         if (response.data.authenticationToken) {
           localStorage.setItem("user", JSON.stringify(response.data));
-          window.location.href = "/profile";
         }
         return response.data;
       })
@@ -74,9 +73,6 @@ class AuthService {
     });
   }
 
-  async logout() {
-    window.location.href = "/login";
-  }
   async getCurrentUser(): Promise<AxiosResponse<userType>> {
     return axios
       .get(API_URL + "/profile", {

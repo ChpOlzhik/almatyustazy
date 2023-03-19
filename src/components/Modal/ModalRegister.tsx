@@ -6,17 +6,16 @@ import UploadButtons from '../Upload/Upload.component'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
-import Select, { SelectChangeEvent } from '@mui/material/Select'
 import '../../index.scss'
 import Alert from '@mui/material/Alert'
 import { useState } from 'react'
-import DatePickerValue from '../DatePicker/DatePicker.component'
 import dayjs, { Dayjs } from 'dayjs'
 import TournamentService from '../../services/TournamentService'
 import { schools, subjects } from '../../models/data'
 import TextField from '@mui/material/TextField'
 import '../../index.scss'
 import { AxiosError } from 'axios'
+import { useTranslation } from 'react-i18next'
 const style = {
   position: 'absolute' as 'absolute',
   top: '50%',
@@ -37,6 +36,10 @@ type Props = {
 }
 
 export default function ModalRegister({ handleClose, open }: Props) {
+  const [formState, setFormState] = useState<'pending' | 'submitted' | 'error'>(
+    'submitted',
+  )
+
   const [selectedFile, setSelectedFile] = useState<FileList | null>(null)
   const [selectedFile2, setSelectedFile2] = useState<FileList | null>(null)
   const [success, setSuccess] = useState(false)
@@ -54,9 +57,10 @@ export default function ModalRegister({ handleClose, open }: Props) {
   const sent = () => {}
 
   const sendFirst = () => {
+    setFormState('pending')
     TournamentService.sendForm(formData1)
-      .then((res) => {
-        console.log(res)
+      .then((response) => {
+        setFormState('submitted')
       })
       .finally(() => {
         setSuccess(true)
@@ -68,10 +72,12 @@ export default function ModalRegister({ handleClose, open }: Props) {
   }
 
   const sendSecond = () => {
+    setFormState('pending')
     if (selectedFile2) {
       TournamentService.sendPresentation(formData2)
-        .then((res) => {
-          console.log(res)
+        .then((response) => {
+          // handle success response
+          setFormState('submitted')
         })
         .finally(() => {
           handleClose()
@@ -87,6 +93,7 @@ export default function ModalRegister({ handleClose, open }: Props) {
       })
     }
   }
+  const { t } = useTranslation()
 
   return (
     <div>
@@ -110,11 +117,11 @@ export default function ModalRegister({ handleClose, open }: Props) {
               color: '#000',
             }}
           >
-            <h3>Олимпиадаға тіркелу</h3>
+            <h3>{t('olymp')}</h3>
           </Typography>
           {success ? (
             <>
-              <h5>2. Презентацияның ссылкасын салыңыз немесе жүктеңіз </h5>
+              <h5>{t('link')} </h5>
               <Box
                 component="form"
                 sx={{
@@ -134,7 +141,7 @@ export default function ModalRegister({ handleClose, open }: Props) {
               >
                 <TextField
                   id="standard-basic"
-                  label="Презентацияның ссылкасы"
+                  label={t('formLink')}
                   variant="standard"
                   onChange={(e) => setLink(e.target.value)}
                 />
@@ -145,7 +152,7 @@ export default function ModalRegister({ handleClose, open }: Props) {
                     alignItems: 'center',
                   }}
                 >
-                  Немесе
+                  {t('or')}
                 </div>
                 <FormControl fullWidth>
                   <Button variant="outlined">
@@ -164,8 +171,9 @@ export default function ModalRegister({ handleClose, open }: Props) {
                     variant="contained"
                     onClick={sendSecond}
                   >
-                    Презентацияны жіберу
+                    {t('work')}
                   </Button>
+                  {formState === 'pending' && <p>Жіберілуде</p>}
                 </FormControl>
                 {error && (
                   <Alert
@@ -174,14 +182,14 @@ export default function ModalRegister({ handleClose, open }: Props) {
                     }}
                     severity="error"
                   >
-                    Жіберілген жоқ, қайтадан көріңіз
+                    {t('errorSend')}
                   </Alert>
                 )}
               </Box>
             </>
           ) : (
             <>
-              <h5>1. Нысан (форма) бойынша өтінімді жүктеңіз </h5>
+              <h5>{t('form')}</h5>
               <FormControl fullWidth>
                 <Button variant="outlined">
                   <input
@@ -197,8 +205,9 @@ export default function ModalRegister({ handleClose, open }: Props) {
                   variant="contained"
                   onClick={sendFirst}
                 >
-                  Өтінімді жіберу
+                  {t('send')}
                 </Button>
+                {formState === 'pending' && <p>Жіберілуде</p>}
               </FormControl>
               {error && (
                 <Alert
@@ -207,7 +216,7 @@ export default function ModalRegister({ handleClose, open }: Props) {
                   }}
                   severity="error"
                 >
-                  Жіберілген жоқ, қайтадан көріңіз
+                  {t('errorSend')}
                 </Alert>
               )}
             </>

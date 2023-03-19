@@ -117,6 +117,8 @@ const RegisterDoctor = () => {
       )
       .then(() => {
         setState((prevState) => ({ ...prevState, success: false }))
+        const a = Number(localStorage.getItem('id')) + 10
+        localStorage.setItem('id', a.toString())
       })
 
       .catch((err: AxiosError) => {
@@ -271,6 +273,15 @@ const RegisterDoctor = () => {
             onClick={send}
           >
             {t('send')}
+          </Button>
+          <Button
+            variant="contained"
+            style={{
+              margin: '15px',
+            }}
+            onClick={() => navigate('/')}
+          >
+            {t('mainPage')}
           </Button>
           {state.error == true && (
             <Alert severity="error">

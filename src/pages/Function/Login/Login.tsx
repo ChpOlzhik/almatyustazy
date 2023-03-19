@@ -1,7 +1,7 @@
 import React from 'react'
 import classes from './Login.module.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import AuthService from '../../../services/AuthService'
 import HeaderComponent from '../../../components/Header/Header.component'
 import { AxiosResponse } from 'axios'
@@ -24,16 +24,20 @@ const Login = () => {
     setIsLogin((prevState) => !prevState)
   }
   const [error, setError] = React.useState<string | null>(null)
-
+  const navigate = useNavigate()
   const submitHandler = (event: React.FormEvent) => {
     event.preventDefault()
     if (isLogin) {
-      AuthService.login(all.username.toString(), all.password.toString()).catch(
-        (err) => {
+      AuthService.login(all.username.toString(), all.password.toString())
+        .then((response: AxiosResponse) => {
+          console.log(response.data)
+          navigate('/profile')
+          localStorage.setItem('id', '0')
+        })
+        .catch((err) => {
           setError(err)
           console.log(error)
-        },
-      )
+        })
     } else {
       AuthService.register(
         all.username.toString(),
@@ -45,7 +49,8 @@ const Login = () => {
       )
         .then((response: AxiosResponse) => {
           console.log(response.data)
-          AuthService.login(all.username.toString(), all.password.toString())
+          navigate('/profile')
+          localStorage.setItem('id', '0')
         })
         .catch((error) => {
           setError(error.response.data.message)
